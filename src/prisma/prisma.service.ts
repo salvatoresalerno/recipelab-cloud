@@ -1,19 +1,24 @@
 import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 import { PrismaMariaDb } from '@prisma/adapter-mariadb';
-import { PrismaClient } from './generated/prisma/client';
+import { PrismaClient } from '../generated/prisma/client';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
-  constructor() {
+  constructor(private configService: ConfigService) {
+
+    console.log('USER FROM ENV:', configService.get('DB_USERNAME'));
+  console.log('DB NAME FROM ENV:', configService.get('DB_NAME'));
     // Configura l'adapter per MariaDB con i parametri di connessione
     const adapter = new PrismaMariaDb({
-      host: process.env.DB_HOST || 'localhost',
-      port: parseInt(process.env.DB_PORT || '3306', 10),
-      user: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-      connectionLimit: 10, // Opzionale: numero massimo di connessioni nel pool
-    }); 
+      host: configService.get<string>('DB_HOST', 'localhost'),
+      port: configService.get<number>('DB_PORT', 3306),
+      user: configService.get<string>('DB_USERNAME'),
+      password: configService.get<string>('DB_PASSWORD'),
+      database: configService.get<string>('DB_NAME'),
+      connectionLimit: 10,
+      allowPublicKeyRetrieval: true
+    });
     
     // Passa l'adapter al costruttore di PrismaClient
     super({ adapter });
