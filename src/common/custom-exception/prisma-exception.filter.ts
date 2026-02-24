@@ -122,7 +122,6 @@ export class PrismaExceptionFilter implements ExceptionFilter {
     }
 
     // --- Costruzione risposta ---
-    console.log('code: ', code)
     const apiResponse: ErrorApiResponseDto = {
       success: false,
       statusCode,

@@ -15,7 +15,7 @@ async function bootstrap() {
 
   app.use(helmet());
 
-  app.useGlobalInterceptors(new TransformInterceptor());
+  //app.useGlobalInterceptors(new TransformInterceptor());
 
   app.useGlobalPipes(
     //new SanitizeAndTrimPipe(),
@@ -30,13 +30,19 @@ async function bootstrap() {
         }));
         return new CustomValidationException({
           statusCode: HttpStatus.UNPROCESSABLE_ENTITY,
-          message: 'Errore di validazionee',
+          message: 'validationErrorMessage',  //tag per messaggio i18n per il FE
           code: 'AV1120',
           error: formattedErrors,
         });
       },
     }),
   );     
+
+  app.enableCors({
+    origin: true, // o l'indirizzo della tua app electron
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  });
 
   await app.listen(process.env.PORT ?? 5000);
 }

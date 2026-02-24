@@ -23,10 +23,15 @@ export class AuthService {
     const existingUser = await this.prisma.user.findUnique({ where: { email } });
     if (existingUser) {
       throw new CustomException(
-        'Email già registrata',
+        'EmailExisting',
         HttpStatus.CONFLICT,
         'Conflict'
       );
+      /* throw new CustomException(
+        'Email già registrata',
+        HttpStatus.CONFLICT,
+        'Conflict'
+      ); */
     }
 
     // 2. Hash della password (salt rounds = 10 è lo standard)
@@ -42,7 +47,8 @@ export class AuthService {
       },
     });
 
-    return { message: 'Registrazione completata con successo', userId: newUser.id };
+    return { message: 'signupOk', userId: newUser.id };
+    //return { message: 'Registrazione completata con successo', userId: newUser.id };
   }
 
   async login(loginDto: LoginDto) {
@@ -51,22 +57,22 @@ export class AuthService {
     // 1. Cerchiamo l'utente
     const user = await this.prisma.user.findUnique({ where: { email } });
     if (!user) {
-      throw new CustomException('Credenziali non valide', HttpStatus.UNAUTHORIZED, 'Unauthorized');
+      throw new CustomException('LoginFailed', HttpStatus.UNAUTHORIZED, 'Unauthorized');
     }
 
     // 2. Verifichiamo la password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      throw new CustomException('Credenziali non valide', HttpStatus.UNAUTHORIZED, 'Unauthorized');
+      throw new CustomException('LoginFailed', HttpStatus.UNAUTHORIZED, 'Unauthorized');
     }
 
     // 3. Generiamo il JWT
     const payload = { 
-        sub: user.id, 
-        email: user.email, 
-        username: user.username, 
-        iss: this.configService.get('ISS_JWT'),
-        aud: this.configService.get('AUD_JWT'),
+      sub: user.id, 
+      email: user.email, 
+      username: user.username, 
+      iss: this.configService.get('ISS_JWT'),
+      aud: this.configService.get('AUD_JWT'),
     };
     
     return {

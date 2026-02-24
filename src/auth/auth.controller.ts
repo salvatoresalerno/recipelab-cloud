@@ -15,22 +15,23 @@ export class AuthController {
 
   @Post('login')
   async login(@Body() loginDto: LoginDto) {
-    //return this.authService.login(loginDto);
-    const result = await this.authService.login(loginDto);
+    return this.authService.login(loginDto);
+    /* const result = await this.authService.login(loginDto);
 
     return {
       message: 'Login effettuato con successo',
       result: result 
-    };
+    }; */
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('me')
   getMe(@Request() req) {
-    return {
+    return req.user;
+    /* return {
       success: true,
       data: req.user,
-    };
+    }; */
   }
 
 }
