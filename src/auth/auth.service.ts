@@ -5,6 +5,7 @@ import { LoginDto } from './dto/login.dto';
 import * as bcrypt from 'bcrypt';
 import { CustomException } from 'src/common/custom-exception/CustomException';
 import { ConfigService } from '@nestjs/config';
+import { SyncGateway } from 'src/sync/sync.gateway';
 
 @Injectable()
 export class AuthService {
@@ -12,7 +13,7 @@ export class AuthService {
   constructor(
     private prisma: PrismaService,
     private jwtService: JwtService,
-    private configService: ConfigService
+    private configService: ConfigService,
   ) {}
 
   
@@ -47,6 +48,7 @@ export class AuthService {
       },
     });
 
+    
     return { message: 'signupOk', userId: newUser.id };
     //return { message: 'Registrazione completata con successo', userId: newUser.id };
   }

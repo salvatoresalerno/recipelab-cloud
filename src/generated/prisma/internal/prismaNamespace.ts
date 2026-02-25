@@ -384,7 +384,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  User: 'User'
+  User: 'User',
+  TestItem: 'TestItem'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -400,7 +401,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user"
+    modelProps: "user" | "testItem"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -470,6 +471,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    TestItem: {
+      payload: Prisma.$TestItemPayload<ExtArgs>
+      fields: Prisma.TestItemFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TestItemFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestItemPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TestItemFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestItemPayload>
+        }
+        findFirst: {
+          args: Prisma.TestItemFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestItemPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TestItemFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestItemPayload>
+        }
+        findMany: {
+          args: Prisma.TestItemFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestItemPayload>[]
+        }
+        create: {
+          args: Prisma.TestItemCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestItemPayload>
+        }
+        createMany: {
+          args: Prisma.TestItemCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.TestItemDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestItemPayload>
+        }
+        update: {
+          args: Prisma.TestItemUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestItemPayload>
+        }
+        deleteMany: {
+          args: Prisma.TestItemDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TestItemUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.TestItemUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestItemPayload>
+        }
+        aggregate: {
+          args: Prisma.TestItemAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTestItem>
+        }
+        groupBy: {
+          args: Prisma.TestItemGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TestItemGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TestItemCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TestItemCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -521,6 +588,17 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+export const TestItemScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TestItemScalarFieldEnum = (typeof TestItemScalarFieldEnum)[keyof typeof TestItemScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -545,6 +623,15 @@ export const UserOrderByRelevanceFieldEnum = {
 } as const
 
 export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum]
+
+
+export const TestItemOrderByRelevanceFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title'
+} as const
+
+export type TestItemOrderByRelevanceFieldEnum = (typeof TestItemOrderByRelevanceFieldEnum)[keyof typeof TestItemOrderByRelevanceFieldEnum]
 
 
 
@@ -669,6 +756,7 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
+  testItem?: Prisma.TestItemOmit
 }
 
 /* Types for Logging */
