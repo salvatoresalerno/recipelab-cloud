@@ -24,11 +24,17 @@ export class SyncGateway
     console.log('SyncGateway ISTANZA creata', Date.now())
   }
 
+  
+
   async handleConnection(client: Socket) {
     try {
       console.log('Tentativo connessione', client.id)
 
       const token = client.handshake.auth?.token
+      const aa = client.handshake.auth?.deviceId
+
+      console.log('device ID AA = ', aa)
+      
       if (!token) {
         client.disconnect()
         return
@@ -59,6 +65,7 @@ export class SyncGateway
     type: 'created' | 'updated' | 'deleted'
     id: string
     updatedAt: Date
+    deviceId: string
   }) {
     console.log('Emissione entity_changed per user:', userId)
     console.log('Payload:', payload)

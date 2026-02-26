@@ -51,6 +51,7 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  ChangeLog: 'ChangeLog',
   User: 'User',
   TestItem: 'TestItem'
 } as const
@@ -69,6 +70,18 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const ChangeLogScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tableName: 'tableName',
+  recordId: 'recordId',
+  operation: 'operation',
+  createdAt: 'createdAt'
+} as const
+
+export type ChangeLogScalarFieldEnum = (typeof ChangeLogScalarFieldEnum)[keyof typeof ChangeLogScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
@@ -100,6 +113,16 @@ export const SortOrder = {
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const ChangeLogOrderByRelevanceFieldEnum = {
+  userId: 'userId',
+  tableName: 'tableName',
+  recordId: 'recordId',
+  operation: 'operation'
+} as const
+
+export type ChangeLogOrderByRelevanceFieldEnum = (typeof ChangeLogOrderByRelevanceFieldEnum)[keyof typeof ChangeLogOrderByRelevanceFieldEnum]
 
 
 export const NullsOrder = {

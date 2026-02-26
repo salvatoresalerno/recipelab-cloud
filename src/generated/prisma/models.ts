@@ -8,6 +8,7 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/ChangeLog.js'
 export type * from './models/User.js'
 export type * from './models/TestItem.js'
 export type * from './commonInputTypes.js'

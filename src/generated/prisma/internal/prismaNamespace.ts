@@ -384,6 +384,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
+  ChangeLog: 'ChangeLog',
   User: 'User',
   TestItem: 'TestItem'
 } as const
@@ -401,10 +402,76 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "testItem"
+    modelProps: "changeLog" | "user" | "testItem"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
+    ChangeLog: {
+      payload: Prisma.$ChangeLogPayload<ExtArgs>
+      fields: Prisma.ChangeLogFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ChangeLogFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChangeLogPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ChangeLogFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChangeLogPayload>
+        }
+        findFirst: {
+          args: Prisma.ChangeLogFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChangeLogPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ChangeLogFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChangeLogPayload>
+        }
+        findMany: {
+          args: Prisma.ChangeLogFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChangeLogPayload>[]
+        }
+        create: {
+          args: Prisma.ChangeLogCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChangeLogPayload>
+        }
+        createMany: {
+          args: Prisma.ChangeLogCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.ChangeLogDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChangeLogPayload>
+        }
+        update: {
+          args: Prisma.ChangeLogUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChangeLogPayload>
+        }
+        deleteMany: {
+          args: Prisma.ChangeLogDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ChangeLogUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.ChangeLogUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChangeLogPayload>
+        }
+        aggregate: {
+          args: Prisma.ChangeLogAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateChangeLog>
+        }
+        groupBy: {
+          args: Prisma.ChangeLogGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChangeLogGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ChangeLogCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChangeLogCountAggregateOutputType> | number
+        }
+      }
+    }
     User: {
       payload: Prisma.$UserPayload<ExtArgs>
       fields: Prisma.UserFieldRefs
@@ -576,6 +643,18 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+export const ChangeLogScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tableName: 'tableName',
+  recordId: 'recordId',
+  operation: 'operation',
+  createdAt: 'createdAt'
+} as const
+
+export type ChangeLogScalarFieldEnum = (typeof ChangeLogScalarFieldEnum)[keyof typeof ChangeLogScalarFieldEnum]
+
+
 export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
@@ -605,6 +684,16 @@ export const SortOrder = {
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const ChangeLogOrderByRelevanceFieldEnum = {
+  userId: 'userId',
+  tableName: 'tableName',
+  recordId: 'recordId',
+  operation: 'operation'
+} as const
+
+export type ChangeLogOrderByRelevanceFieldEnum = (typeof ChangeLogOrderByRelevanceFieldEnum)[keyof typeof ChangeLogOrderByRelevanceFieldEnum]
 
 
 export const NullsOrder = {
@@ -641,6 +730,13 @@ export type TestItemOrderByRelevanceFieldEnum = (typeof TestItemOrderByRelevance
 
 
 /**
+ * Reference to a field of type 'BigInt'
+ */
+export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
+    
+
+
+/**
  * Reference to a field of type 'String'
  */
 export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
@@ -658,6 +754,13 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'Int'
  */
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
     
 
 /**
@@ -755,6 +858,7 @@ export type PrismaClientOptions = ({
   comments?: runtime.SqlCommenterPlugin[]
 }
 export type GlobalOmitConfig = {
+  changeLog?: Prisma.ChangeLogOmit
   user?: Prisma.UserOmit
   testItem?: Prisma.TestItemOmit
 }

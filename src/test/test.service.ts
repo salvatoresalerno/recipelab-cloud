@@ -24,8 +24,8 @@ export class TestService {
 
 
 
-    async create(userId: string, title: string) {
-        const item = await this.prisma.testItem.create({
+    async create(userId: string, title: string, deviceId: string) {
+        /* const item = await this.prisma.testItem.create({
             data: {
                 userId,
                 title
@@ -37,40 +37,84 @@ export class TestService {
             entity: 'test',
             type: 'created',
             id: item.id,
-            updatedAt: item.updatedAt
-        })
-        /* this.syncGateway.notifyUser(
-            userId,
-            'test_item_created',
-            {
-                title
-            }
-        )  */
+            updatedAt: item.updatedAt,
+            deviceId
+        }) */
 
-    return item
+        await this.prisma.$transaction(async (tx) => {
+            const item = await tx.testItem.create({ 
+                data: {
+                    userId,
+                    title
+                }
+             })
+
+            this.syncGateway.notifyEntityChange(userId, {
+                entity: 'test',
+                type: 'created',
+                id: item.id,
+                updatedAt: item.updatedAt,
+                deviceId
+            })
+
+            await tx.changeLog.create({
+                data: {
+                userId,
+                tableName: "testItem",
+                recordId: item.id,
+                operation: "create"
+                }
+            })
+
+            return item
+        })
+        
+
+     
   }
 
-    async update(userId: string, id: string, title: string) {
+    async update(userId: string, id: string, title: string, deviceId: string) {
         const item = await this.prisma.testItem.update({
             where: { id },
             data: { title }
         })
 
-        /* this.syncGateway.notifyUser(
-            userId,
-            'test_item_updated',
-            {
-                title
-            }
-        ) */
         this.syncGateway.notifyEntityChange(userId, {
             entity: 'test',
             type: 'updated',
             id: item.id,
-            updatedAt: item.updatedAt
+            updatedAt: item.updatedAt,
+            deviceId
         })
 
         return item
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    async getChangesSince(date: Date, userId: string) {
+        const updated = await this.prisma.testItem.findMany({
+            where: {
+            userId,
+            updatedAt: { gt: date }
+            }
+        })
+
+        return {
+            updated
+        }
     }
 
 }
