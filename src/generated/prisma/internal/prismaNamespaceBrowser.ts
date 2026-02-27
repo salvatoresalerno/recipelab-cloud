@@ -75,9 +75,11 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const ChangeLogScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  tableName: 'tableName',
+  entity: 'entity',
   recordId: 'recordId',
   operation: 'operation',
+  payload: 'payload',
+  deviceId: 'deviceId',
   createdAt: 'createdAt'
 } as const
 
@@ -115,14 +117,29 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-export const ChangeLogOrderByRelevanceFieldEnum = {
-  userId: 'userId',
-  tableName: 'tableName',
-  recordId: 'recordId',
-  operation: 'operation'
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
 } as const
 
-export type ChangeLogOrderByRelevanceFieldEnum = (typeof ChangeLogOrderByRelevanceFieldEnum)[keyof typeof ChangeLogOrderByRelevanceFieldEnum]
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
+export const QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+} as const
+
+export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
 export const NullsOrder = {
@@ -131,6 +148,17 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const ChangeLogOrderByRelevanceFieldEnum = {
+  userId: 'userId',
+  entity: 'entity',
+  recordId: 'recordId',
+  operation: 'operation',
+  deviceId: 'deviceId'
+} as const
+
+export type ChangeLogOrderByRelevanceFieldEnum = (typeof ChangeLogOrderByRelevanceFieldEnum)[keyof typeof ChangeLogOrderByRelevanceFieldEnum]
 
 
 export const UserOrderByRelevanceFieldEnum = {

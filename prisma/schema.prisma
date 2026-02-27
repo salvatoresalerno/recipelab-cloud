@@ -15,13 +15,27 @@ datasource db {
 }
 
 
-model ChangeLog {
+/* model ChangeLog {
   id         BigInt   @id @default(autoincrement())
   userId     String
   tableName  String
   recordId   String
   operation  String   // create | update | delete
   createdAt  DateTime @default(now())
+
+  @@index([userId, id])
+  @@index([userId, tableName, id])
+} */
+
+model ChangeLog {
+  id        BigInt   @id @default(autoincrement())
+  userId    String
+  entity    String   // tableName (es. "testItem")
+  recordId  String
+  operation String   // "create" | "update" | "delete"
+  payload   Json?    // <--- Contiene i dati dell'oggetto (es. { title: "..." })
+  deviceId  String   // Per evitare che il mittente ri-applichi la sua stessa modifica
+  createdAt DateTime @default(now())
 
   @@index([userId, id])
 }

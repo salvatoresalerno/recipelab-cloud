@@ -37,27 +37,31 @@ export type ChangeLogSumAggregateOutputType = {
 export type ChangeLogMinAggregateOutputType = {
   id: bigint | null
   userId: string | null
-  tableName: string | null
+  entity: string | null
   recordId: string | null
   operation: string | null
+  deviceId: string | null
   createdAt: Date | null
 }
 
 export type ChangeLogMaxAggregateOutputType = {
   id: bigint | null
   userId: string | null
-  tableName: string | null
+  entity: string | null
   recordId: string | null
   operation: string | null
+  deviceId: string | null
   createdAt: Date | null
 }
 
 export type ChangeLogCountAggregateOutputType = {
   id: number
   userId: number
-  tableName: number
+  entity: number
   recordId: number
   operation: number
+  payload: number
+  deviceId: number
   createdAt: number
   _all: number
 }
@@ -74,27 +78,31 @@ export type ChangeLogSumAggregateInputType = {
 export type ChangeLogMinAggregateInputType = {
   id?: true
   userId?: true
-  tableName?: true
+  entity?: true
   recordId?: true
   operation?: true
+  deviceId?: true
   createdAt?: true
 }
 
 export type ChangeLogMaxAggregateInputType = {
   id?: true
   userId?: true
-  tableName?: true
+  entity?: true
   recordId?: true
   operation?: true
+  deviceId?: true
   createdAt?: true
 }
 
 export type ChangeLogCountAggregateInputType = {
   id?: true
   userId?: true
-  tableName?: true
+  entity?: true
   recordId?: true
   operation?: true
+  payload?: true
+  deviceId?: true
   createdAt?: true
   _all?: true
 }
@@ -188,9 +196,11 @@ export type ChangeLogGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
 export type ChangeLogGroupByOutputType = {
   id: bigint
   userId: string
-  tableName: string
+  entity: string
   recordId: string
   operation: string
+  payload: runtime.JsonValue | null
+  deviceId: string
   createdAt: Date
   _count: ChangeLogCountAggregateOutputType | null
   _avg: ChangeLogAvgAggregateOutputType | null
@@ -220,18 +230,22 @@ export type ChangeLogWhereInput = {
   NOT?: Prisma.ChangeLogWhereInput | Prisma.ChangeLogWhereInput[]
   id?: Prisma.BigIntFilter<"ChangeLog"> | bigint | number
   userId?: Prisma.StringFilter<"ChangeLog"> | string
-  tableName?: Prisma.StringFilter<"ChangeLog"> | string
+  entity?: Prisma.StringFilter<"ChangeLog"> | string
   recordId?: Prisma.StringFilter<"ChangeLog"> | string
   operation?: Prisma.StringFilter<"ChangeLog"> | string
+  payload?: Prisma.JsonNullableFilter<"ChangeLog">
+  deviceId?: Prisma.StringFilter<"ChangeLog"> | string
   createdAt?: Prisma.DateTimeFilter<"ChangeLog"> | Date | string
 }
 
 export type ChangeLogOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  tableName?: Prisma.SortOrder
+  entity?: Prisma.SortOrder
   recordId?: Prisma.SortOrder
   operation?: Prisma.SortOrder
+  payload?: Prisma.SortOrderInput | Prisma.SortOrder
+  deviceId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _relevance?: Prisma.ChangeLogOrderByRelevanceInput
 }
@@ -242,18 +256,22 @@ export type ChangeLogWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.ChangeLogWhereInput[]
   NOT?: Prisma.ChangeLogWhereInput | Prisma.ChangeLogWhereInput[]
   userId?: Prisma.StringFilter<"ChangeLog"> | string
-  tableName?: Prisma.StringFilter<"ChangeLog"> | string
+  entity?: Prisma.StringFilter<"ChangeLog"> | string
   recordId?: Prisma.StringFilter<"ChangeLog"> | string
   operation?: Prisma.StringFilter<"ChangeLog"> | string
+  payload?: Prisma.JsonNullableFilter<"ChangeLog">
+  deviceId?: Prisma.StringFilter<"ChangeLog"> | string
   createdAt?: Prisma.DateTimeFilter<"ChangeLog"> | Date | string
 }, "id">
 
 export type ChangeLogOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  tableName?: Prisma.SortOrder
+  entity?: Prisma.SortOrder
   recordId?: Prisma.SortOrder
   operation?: Prisma.SortOrder
+  payload?: Prisma.SortOrderInput | Prisma.SortOrder
+  deviceId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.ChangeLogCountOrderByAggregateInput
   _avg?: Prisma.ChangeLogAvgOrderByAggregateInput
@@ -268,72 +286,88 @@ export type ChangeLogScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ChangeLogScalarWhereWithAggregatesInput | Prisma.ChangeLogScalarWhereWithAggregatesInput[]
   id?: Prisma.BigIntWithAggregatesFilter<"ChangeLog"> | bigint | number
   userId?: Prisma.StringWithAggregatesFilter<"ChangeLog"> | string
-  tableName?: Prisma.StringWithAggregatesFilter<"ChangeLog"> | string
+  entity?: Prisma.StringWithAggregatesFilter<"ChangeLog"> | string
   recordId?: Prisma.StringWithAggregatesFilter<"ChangeLog"> | string
   operation?: Prisma.StringWithAggregatesFilter<"ChangeLog"> | string
+  payload?: Prisma.JsonNullableWithAggregatesFilter<"ChangeLog">
+  deviceId?: Prisma.StringWithAggregatesFilter<"ChangeLog"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ChangeLog"> | Date | string
 }
 
 export type ChangeLogCreateInput = {
   id?: bigint | number
   userId: string
-  tableName: string
+  entity: string
   recordId: string
   operation: string
+  payload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deviceId: string
   createdAt?: Date | string
 }
 
 export type ChangeLogUncheckedCreateInput = {
   id?: bigint | number
   userId: string
-  tableName: string
+  entity: string
   recordId: string
   operation: string
+  payload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deviceId: string
   createdAt?: Date | string
 }
 
 export type ChangeLogUpdateInput = {
   id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  tableName?: Prisma.StringFieldUpdateOperationsInput | string
+  entity?: Prisma.StringFieldUpdateOperationsInput | string
   recordId?: Prisma.StringFieldUpdateOperationsInput | string
   operation?: Prisma.StringFieldUpdateOperationsInput | string
+  payload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deviceId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ChangeLogUncheckedUpdateInput = {
   id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  tableName?: Prisma.StringFieldUpdateOperationsInput | string
+  entity?: Prisma.StringFieldUpdateOperationsInput | string
   recordId?: Prisma.StringFieldUpdateOperationsInput | string
   operation?: Prisma.StringFieldUpdateOperationsInput | string
+  payload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deviceId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ChangeLogCreateManyInput = {
   id?: bigint | number
   userId: string
-  tableName: string
+  entity: string
   recordId: string
   operation: string
+  payload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deviceId: string
   createdAt?: Date | string
 }
 
 export type ChangeLogUpdateManyMutationInput = {
   id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  tableName?: Prisma.StringFieldUpdateOperationsInput | string
+  entity?: Prisma.StringFieldUpdateOperationsInput | string
   recordId?: Prisma.StringFieldUpdateOperationsInput | string
   operation?: Prisma.StringFieldUpdateOperationsInput | string
+  payload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deviceId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ChangeLogUncheckedUpdateManyInput = {
   id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  tableName?: Prisma.StringFieldUpdateOperationsInput | string
+  entity?: Prisma.StringFieldUpdateOperationsInput | string
   recordId?: Prisma.StringFieldUpdateOperationsInput | string
   operation?: Prisma.StringFieldUpdateOperationsInput | string
+  payload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deviceId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -346,9 +380,11 @@ export type ChangeLogOrderByRelevanceInput = {
 export type ChangeLogCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  tableName?: Prisma.SortOrder
+  entity?: Prisma.SortOrder
   recordId?: Prisma.SortOrder
   operation?: Prisma.SortOrder
+  payload?: Prisma.SortOrder
+  deviceId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -359,18 +395,20 @@ export type ChangeLogAvgOrderByAggregateInput = {
 export type ChangeLogMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  tableName?: Prisma.SortOrder
+  entity?: Prisma.SortOrder
   recordId?: Prisma.SortOrder
   operation?: Prisma.SortOrder
+  deviceId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type ChangeLogMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  tableName?: Prisma.SortOrder
+  entity?: Prisma.SortOrder
   recordId?: Prisma.SortOrder
   operation?: Prisma.SortOrder
+  deviceId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -399,9 +437,11 @@ export type DateTimeFieldUpdateOperationsInput = {
 export type ChangeLogSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
-  tableName?: boolean
+  entity?: boolean
   recordId?: boolean
   operation?: boolean
+  payload?: boolean
+  deviceId?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["changeLog"]>
 
@@ -410,13 +450,15 @@ export type ChangeLogSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type ChangeLogSelectScalar = {
   id?: boolean
   userId?: boolean
-  tableName?: boolean
+  entity?: boolean
   recordId?: boolean
   operation?: boolean
+  payload?: boolean
+  deviceId?: boolean
   createdAt?: boolean
 }
 
-export type ChangeLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "tableName" | "recordId" | "operation" | "createdAt", ExtArgs["result"]["changeLog"]>
+export type ChangeLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "entity" | "recordId" | "operation" | "payload" | "deviceId" | "createdAt", ExtArgs["result"]["changeLog"]>
 
 export type $ChangeLogPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ChangeLog"
@@ -424,9 +466,11 @@ export type $ChangeLogPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: bigint
     userId: string
-    tableName: string
+    entity: string
     recordId: string
     operation: string
+    payload: runtime.JsonValue | null
+    deviceId: string
     createdAt: Date
   }, ExtArgs["result"]["changeLog"]>
   composites: {}
@@ -799,9 +843,11 @@ export interface Prisma__ChangeLogClient<T, Null = never, ExtArgs extends runtim
 export interface ChangeLogFieldRefs {
   readonly id: Prisma.FieldRef<"ChangeLog", 'BigInt'>
   readonly userId: Prisma.FieldRef<"ChangeLog", 'String'>
-  readonly tableName: Prisma.FieldRef<"ChangeLog", 'String'>
+  readonly entity: Prisma.FieldRef<"ChangeLog", 'String'>
   readonly recordId: Prisma.FieldRef<"ChangeLog", 'String'>
   readonly operation: Prisma.FieldRef<"ChangeLog", 'String'>
+  readonly payload: Prisma.FieldRef<"ChangeLog", 'Json'>
+  readonly deviceId: Prisma.FieldRef<"ChangeLog", 'String'>
   readonly createdAt: Prisma.FieldRef<"ChangeLog", 'DateTime'>
 }
     

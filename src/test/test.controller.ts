@@ -16,6 +16,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
 import { CurrentLoggedUser } from 'src/auth/decorators/currentLoggedUser.decorators'
 import type { CurrentUser } from 'src/common/types/commonTypes'
 import { CustomException } from 'src/common/custom-exception/CustomException'
+import { SyncChangesDto } from './dto/sync-changes.dto'
 
 @Controller('test')
 export class TestController {
@@ -60,13 +61,67 @@ export class TestController {
         return this.testService.update(user.id, id, body.title, deviceId)
     }
 
-    @Get('changes')
+
+
+
+    @Get('recovery/:lastChangeId')
+    @UseGuards(JwtAuthGuard)
+    async getRecoveryData(@CurrentLoggedUser() user: CurrentUser, @Param('lastChangeId') lastChangeId: string,) {  // Arriva come stringa dalla URL
+    
+        return await this.testService.getChangesSince(user.id, lastChangeId);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* @Get('changes')
     async getChanges(
-        @Query('sinceId') since: string,
+        @Query('sinceId') sinceId: string,
         @CurrentLoggedUser() user: CurrentUser, 
     ) {
-    const date = new Date(since)
+         
 
-    return this.testService.getChangesSince(date, user.id)
+        return this.testService.getChangesSince(sinceId, user.id)
+    } */
+
+
+    @Post('changes')
+    @UseGuards(JwtAuthGuard)
+    async changes(@CurrentLoggedUser() user: CurrentUser, @Body() dto: SyncChangesDto) {
+
+        console.log('user: ', user)
+        console.log('dto: ', dto)
+        
+         
+
+        return this.testService.getChanges(
+            user.id,
+            dto.lastChangeId,
+            dto.tables ?? []
+        );
     }
+
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

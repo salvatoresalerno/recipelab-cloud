@@ -66,6 +66,8 @@ export class SyncGateway
     id: string
     updatedAt: Date
     deviceId: string
+    changeId: string
+    data?: any
   }) {
     console.log('Emissione entity_changed per user:', userId)
     console.log('Payload:', payload)

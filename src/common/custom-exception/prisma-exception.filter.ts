@@ -84,6 +84,7 @@ export class PrismaExceptionFilter implements ExceptionFilter {
       message = responsePayload.message;
       code = responsePayload.code;
       error = responsePayload.error;
+      console.log('errori di validazione: ', error)
     }
 
     // --- CustomException ---
