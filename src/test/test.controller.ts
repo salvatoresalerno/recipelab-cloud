@@ -8,7 +8,8 @@ import {
   Param,
   Get,
   Headers,
-  Query
+  Query,
+  Delete
 } from '@nestjs/common'
 
 import { TestService } from './test.service'
@@ -60,6 +61,22 @@ export class TestController {
 
         return this.testService.update(user.id, id, body.title, deviceId)
     }
+
+
+    @UseGuards(JwtAuthGuard)
+    @Delete(':id')
+    async delete(
+        @CurrentLoggedUser() user: CurrentUser, 
+        @Param('id') id: string,
+        @Headers('x-device-id') deviceId: string,
+    ) {
+         
+
+        return this.testService.delete(user.id, id, deviceId)
+    }
+
+
+
 
 
 

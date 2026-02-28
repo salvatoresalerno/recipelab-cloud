@@ -115,9 +115,88 @@ async create(userId: string, title: string, deviceId: string) {
 }
 
 
+async update(userId: string, id: string, title: string, deviceId: string) {
+  const result = await this.prisma.$transaction(async (tx) => {
+    // 1. update record 
+    const item = await this.prisma.testItem.update({
+      where: { id },
+      data: { title }
+    })
+
+    // 2. Creazione del log con PAYLOAD
+    const changeLog = await tx.changeLog.create({
+      data: {
+        userId,
+        entity: 'testItem',
+        recordId: item.id,
+        operation: 'update',
+        deviceId: deviceId,
+        payload: item, // Salviamo l'oggetto appena modificato
+      }
+    });
+
+    return { item, changeLog };
+  });
+
+  // 3. Notifica via WebSocket
+  // Inviamo l'intero changeLog, così il client ha già tutto
+  this.syncGateway.notifyEntityChange(userId, {
+    entity: result.changeLog.entity,
+    type: result.changeLog.operation as any,
+    id: result.changeLog.recordId,
+    updatedAt: result.item.updatedAt,
+    deviceId: deviceId,
+    changeId: result.changeLog.id.toString(),
+    data: result.item // Includiamo i dati nella notifica real-time
+  });
+
+  return result.item;
+}
+
+async delete(userId: string, id: string, deviceId: string) {
+  const result = await this.prisma.$transaction(async (tx) => {
+    const item = await this.prisma.testItem.delete({
+      where: { id },
+    })
+
+    const changeLog = await tx.changeLog.create({
+      data: {
+        userId,
+        entity: 'testItem',
+        recordId: item.id,
+        operation: 'delete',
+        deviceId: deviceId,
+        payload: undefined,  
+      }
+    });
+
+    return { item, changeLog };
+  });
+
+  // 3. Notifica via WebSocket
+  // Inviamo l'intero changeLog, così il client ha già tutto
+  this.syncGateway.notifyEntityChange(userId, {
+    entity: result.changeLog.entity,
+    type: result.changeLog.operation as any,
+    id: result.changeLog.recordId,
+    updatedAt: result.item.updatedAt,
+    deviceId: deviceId,
+    changeId: result.changeLog.id.toString(),
+    //data: result.item // Includiamo i dati nella notifica real-time
+  });
+
+  return result.item;
+
+  
 
 
-    async update(userId: string, id: string, title: string, deviceId: string) {
+
+}
+
+
+
+
+ /*    async update(userId: string, id: string, title: string, deviceId: string) {
         const item = await this.prisma.testItem.update({
             where: { id },
             data: { title }
@@ -133,7 +212,7 @@ async create(userId: string, title: string, deviceId: string) {
         })
 
         return item
-    }
+    } */
 
 
 
