@@ -57,11 +57,44 @@ model User {
 
 model TestItem {
   id        String   @id @default(uuid())
-  userId    String
   title     String
+
+  userId    String  
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([userId])
+}
+
+
+model Categoria {
+  idCategoria String    @id @default(uuid()) 
+  categoria   String    @unique 
+  image       String?    @default("")
+
+  userId    String
+
+  createdAt              DateTime   @default(now())  
+  updatedAt              DateTime   @default(now()) @updatedAt
+
+  //ricette     Ricette[]
+
+  @@map("categoria")
+}
+
+model Area {  
+  idArea   String    @id @default(uuid()) 
+  area     String    @unique 
+  image    String?    @default("")
+
+  userId    String
+
+  createdAt              DateTime   @default(now()) //aggiunti dopo
+  updatedAt              DateTime   @default(now()) @updatedAt
+
+  //ricette Ricette[] 
+
+  @@map("area")
 }
 

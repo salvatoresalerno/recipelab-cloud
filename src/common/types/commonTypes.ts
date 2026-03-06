@@ -14,7 +14,7 @@ export interface JwtPayload {
 }
 
 export interface CurrentUser {
-    id: string;
+    userId: string;
     email: string;
     username: string;
 }

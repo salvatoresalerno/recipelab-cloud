@@ -32,3 +32,13 @@ export type User = Prisma.UserModel
  * 
  */
 export type TestItem = Prisma.TestItemModel
+/**
+ * Model Categoria
+ * 
+ */
+export type Categoria = Prisma.CategoriaModel
+/**
+ * Model Area
+ * 
+ */
+export type Area = Prisma.AreaModel

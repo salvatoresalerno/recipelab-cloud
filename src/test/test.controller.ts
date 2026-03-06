@@ -28,7 +28,7 @@ export class TestController {
     async findOne(@CurrentLoggedUser() user: CurrentUser, @Param('id') id: string) {
          
 
-        return this.testService.findOne(user.id, id)
+        return this.testService.findOne(user.userId, id)
     }
     
     
@@ -46,7 +46,7 @@ export class TestController {
         }
          
 
-        return this.testService.create(user.id, body.title, deviceId)
+        return this.testService.create(user.userId, body.title, deviceId)
     }
 
     @UseGuards(JwtAuthGuard)
@@ -59,7 +59,7 @@ export class TestController {
     ) {
          
 
-        return this.testService.update(user.id, id, body.title, deviceId)
+        return this.testService.update(user.userId, id, body.title, deviceId)
     }
 
 
@@ -72,7 +72,7 @@ export class TestController {
     ) {
          
 
-        return this.testService.delete(user.id, id, deviceId)
+        return this.testService.delete(user.userId, id, deviceId)
     }
 
 
@@ -85,7 +85,7 @@ export class TestController {
     @UseGuards(JwtAuthGuard)
     async getRecoveryData(@CurrentLoggedUser() user: CurrentUser, @Param('lastChangeId') lastChangeId: string,) {  // Arriva come stringa dalla URL
     
-        return await this.testService.getChangesSince(user.id, lastChangeId);
+        return await this.testService.getChangesSince(user.userId, lastChangeId);
     }
 
 
@@ -107,7 +107,7 @@ export class TestController {
     ) {
          
 
-        return this.testService.getChangesSince(sinceId, user.id)
+        return this.testService.getChangesSince(sinceId, user.userId)
     } */
 
 
@@ -121,7 +121,7 @@ export class TestController {
          
 
         return this.testService.getChanges(
-            user.id,
+            user.userId,
             dto.lastChangeId,
             dto.tables ?? []
         );

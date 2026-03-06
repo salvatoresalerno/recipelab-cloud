@@ -7,6 +7,8 @@ import { PrismaModule } from './prisma/prisma.module';
 import { SyncGateway } from './sync/sync.gateway';
 import { SyncModule } from './sync/sync.module';
 import { TestModule } from './test/test.module';
+import { CategoriaModule } from './categoria/categoria.module';
+import { AreaModule } from './area/area.module';
 
 @Module({
   imports: [
@@ -17,7 +19,9 @@ import { TestModule } from './test/test.module';
     PrismaModule,
     AuthModule,
     SyncModule,
-    TestModule
+    TestModule,
+    CategoriaModule,
+    AreaModule
   ],
   controllers: [AppController],
   providers: [AppService, SyncGateway],

@@ -386,7 +386,9 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   ChangeLog: 'ChangeLog',
   User: 'User',
-  TestItem: 'TestItem'
+  TestItem: 'TestItem',
+  Categoria: 'Categoria',
+  Area: 'Area'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -402,7 +404,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "changeLog" | "user" | "testItem"
+    modelProps: "changeLog" | "user" | "testItem" | "categoria" | "area"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -604,6 +606,138 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Categoria: {
+      payload: Prisma.$CategoriaPayload<ExtArgs>
+      fields: Prisma.CategoriaFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CategoriaFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoriaPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CategoriaFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoriaPayload>
+        }
+        findFirst: {
+          args: Prisma.CategoriaFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoriaPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CategoriaFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoriaPayload>
+        }
+        findMany: {
+          args: Prisma.CategoriaFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoriaPayload>[]
+        }
+        create: {
+          args: Prisma.CategoriaCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoriaPayload>
+        }
+        createMany: {
+          args: Prisma.CategoriaCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.CategoriaDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoriaPayload>
+        }
+        update: {
+          args: Prisma.CategoriaUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoriaPayload>
+        }
+        deleteMany: {
+          args: Prisma.CategoriaDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CategoriaUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.CategoriaUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoriaPayload>
+        }
+        aggregate: {
+          args: Prisma.CategoriaAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCategoria>
+        }
+        groupBy: {
+          args: Prisma.CategoriaGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CategoriaGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CategoriaCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CategoriaCountAggregateOutputType> | number
+        }
+      }
+    }
+    Area: {
+      payload: Prisma.$AreaPayload<ExtArgs>
+      fields: Prisma.AreaFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AreaFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AreaPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AreaFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AreaPayload>
+        }
+        findFirst: {
+          args: Prisma.AreaFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AreaPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AreaFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AreaPayload>
+        }
+        findMany: {
+          args: Prisma.AreaFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AreaPayload>[]
+        }
+        create: {
+          args: Prisma.AreaCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AreaPayload>
+        }
+        createMany: {
+          args: Prisma.AreaCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.AreaDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AreaPayload>
+        }
+        update: {
+          args: Prisma.AreaUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AreaPayload>
+        }
+        deleteMany: {
+          args: Prisma.AreaDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AreaUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.AreaUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AreaPayload>
+        }
+        aggregate: {
+          args: Prisma.AreaAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateArea>
+        }
+        groupBy: {
+          args: Prisma.AreaGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AreaGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AreaCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AreaCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -671,13 +805,37 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 
 export const TestItemScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
   title: 'title',
+  userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type TestItemScalarFieldEnum = (typeof TestItemScalarFieldEnum)[keyof typeof TestItemScalarFieldEnum]
+
+
+export const CategoriaScalarFieldEnum = {
+  idCategoria: 'idCategoria',
+  categoria: 'categoria',
+  image: 'image',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CategoriaScalarFieldEnum = (typeof CategoriaScalarFieldEnum)[keyof typeof CategoriaScalarFieldEnum]
+
+
+export const AreaScalarFieldEnum = {
+  idArea: 'idArea',
+  area: 'area',
+  image: 'image',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AreaScalarFieldEnum = (typeof AreaScalarFieldEnum)[keyof typeof AreaScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -744,11 +902,31 @@ export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnu
 
 export const TestItemOrderByRelevanceFieldEnum = {
   id: 'id',
-  userId: 'userId',
-  title: 'title'
+  title: 'title',
+  userId: 'userId'
 } as const
 
 export type TestItemOrderByRelevanceFieldEnum = (typeof TestItemOrderByRelevanceFieldEnum)[keyof typeof TestItemOrderByRelevanceFieldEnum]
+
+
+export const CategoriaOrderByRelevanceFieldEnum = {
+  idCategoria: 'idCategoria',
+  categoria: 'categoria',
+  image: 'image',
+  userId: 'userId'
+} as const
+
+export type CategoriaOrderByRelevanceFieldEnum = (typeof CategoriaOrderByRelevanceFieldEnum)[keyof typeof CategoriaOrderByRelevanceFieldEnum]
+
+
+export const AreaOrderByRelevanceFieldEnum = {
+  idArea: 'idArea',
+  area: 'area',
+  image: 'image',
+  userId: 'userId'
+} as const
+
+export type AreaOrderByRelevanceFieldEnum = (typeof AreaOrderByRelevanceFieldEnum)[keyof typeof AreaOrderByRelevanceFieldEnum]
 
 
 
@@ -903,6 +1081,8 @@ export type GlobalOmitConfig = {
   changeLog?: Prisma.ChangeLogOmit
   user?: Prisma.UserOmit
   testItem?: Prisma.TestItemOmit
+  categoria?: Prisma.CategoriaOmit
+  area?: Prisma.AreaOmit
 }
 
 /* Types for Logging */

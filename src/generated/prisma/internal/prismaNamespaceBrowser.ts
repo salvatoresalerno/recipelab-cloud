@@ -53,7 +53,9 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   ChangeLog: 'ChangeLog',
   User: 'User',
-  TestItem: 'TestItem'
+  TestItem: 'TestItem',
+  Categoria: 'Categoria',
+  Area: 'Area'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -100,13 +102,37 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 
 export const TestItemScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
   title: 'title',
+  userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type TestItemScalarFieldEnum = (typeof TestItemScalarFieldEnum)[keyof typeof TestItemScalarFieldEnum]
+
+
+export const CategoriaScalarFieldEnum = {
+  idCategoria: 'idCategoria',
+  categoria: 'categoria',
+  image: 'image',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CategoriaScalarFieldEnum = (typeof CategoriaScalarFieldEnum)[keyof typeof CategoriaScalarFieldEnum]
+
+
+export const AreaScalarFieldEnum = {
+  idArea: 'idArea',
+  area: 'area',
+  image: 'image',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AreaScalarFieldEnum = (typeof AreaScalarFieldEnum)[keyof typeof AreaScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -173,9 +199,29 @@ export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnu
 
 export const TestItemOrderByRelevanceFieldEnum = {
   id: 'id',
-  userId: 'userId',
-  title: 'title'
+  title: 'title',
+  userId: 'userId'
 } as const
 
 export type TestItemOrderByRelevanceFieldEnum = (typeof TestItemOrderByRelevanceFieldEnum)[keyof typeof TestItemOrderByRelevanceFieldEnum]
+
+
+export const CategoriaOrderByRelevanceFieldEnum = {
+  idCategoria: 'idCategoria',
+  categoria: 'categoria',
+  image: 'image',
+  userId: 'userId'
+} as const
+
+export type CategoriaOrderByRelevanceFieldEnum = (typeof CategoriaOrderByRelevanceFieldEnum)[keyof typeof CategoriaOrderByRelevanceFieldEnum]
+
+
+export const AreaOrderByRelevanceFieldEnum = {
+  idArea: 'idArea',
+  area: 'area',
+  image: 'image',
+  userId: 'userId'
+} as const
+
+export type AreaOrderByRelevanceFieldEnum = (typeof AreaOrderByRelevanceFieldEnum)[keyof typeof AreaOrderByRelevanceFieldEnum]
 

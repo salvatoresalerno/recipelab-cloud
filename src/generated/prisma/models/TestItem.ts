@@ -26,24 +26,24 @@ export type AggregateTestItem = {
 
 export type TestItemMinAggregateOutputType = {
   id: string | null
-  userId: string | null
   title: string | null
+  userId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type TestItemMaxAggregateOutputType = {
   id: string | null
-  userId: string | null
   title: string | null
+  userId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type TestItemCountAggregateOutputType = {
   id: number
-  userId: number
   title: number
+  userId: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -52,24 +52,24 @@ export type TestItemCountAggregateOutputType = {
 
 export type TestItemMinAggregateInputType = {
   id?: true
-  userId?: true
   title?: true
+  userId?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type TestItemMaxAggregateInputType = {
   id?: true
-  userId?: true
   title?: true
+  userId?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type TestItemCountAggregateInputType = {
   id?: true
-  userId?: true
   title?: true
+  userId?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -149,8 +149,8 @@ export type TestItemGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 
 export type TestItemGroupByOutputType = {
   id: string
-  userId: string
   title: string
+  userId: string
   createdAt: Date
   updatedAt: Date
   _count: TestItemCountAggregateOutputType | null
@@ -178,16 +178,16 @@ export type TestItemWhereInput = {
   OR?: Prisma.TestItemWhereInput[]
   NOT?: Prisma.TestItemWhereInput | Prisma.TestItemWhereInput[]
   id?: Prisma.StringFilter<"TestItem"> | string
-  userId?: Prisma.StringFilter<"TestItem"> | string
   title?: Prisma.StringFilter<"TestItem"> | string
+  userId?: Prisma.StringFilter<"TestItem"> | string
   createdAt?: Prisma.DateTimeFilter<"TestItem"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TestItem"> | Date | string
 }
 
 export type TestItemOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _relevance?: Prisma.TestItemOrderByRelevanceInput
@@ -198,16 +198,16 @@ export type TestItemWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.TestItemWhereInput | Prisma.TestItemWhereInput[]
   OR?: Prisma.TestItemWhereInput[]
   NOT?: Prisma.TestItemWhereInput | Prisma.TestItemWhereInput[]
-  userId?: Prisma.StringFilter<"TestItem"> | string
   title?: Prisma.StringFilter<"TestItem"> | string
+  userId?: Prisma.StringFilter<"TestItem"> | string
   createdAt?: Prisma.DateTimeFilter<"TestItem"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TestItem"> | Date | string
 }, "id">
 
 export type TestItemOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.TestItemCountOrderByAggregateInput
@@ -220,64 +220,64 @@ export type TestItemScalarWhereWithAggregatesInput = {
   OR?: Prisma.TestItemScalarWhereWithAggregatesInput[]
   NOT?: Prisma.TestItemScalarWhereWithAggregatesInput | Prisma.TestItemScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"TestItem"> | string
-  userId?: Prisma.StringWithAggregatesFilter<"TestItem"> | string
   title?: Prisma.StringWithAggregatesFilter<"TestItem"> | string
+  userId?: Prisma.StringWithAggregatesFilter<"TestItem"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TestItem"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"TestItem"> | Date | string
 }
 
 export type TestItemCreateInput = {
   id?: string
-  userId: string
   title: string
+  userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type TestItemUncheckedCreateInput = {
   id?: string
-  userId: string
   title: string
+  userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type TestItemUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TestItemUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TestItemCreateManyInput = {
   id?: string
-  userId: string
   title: string
+  userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type TestItemUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TestItemUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -290,24 +290,24 @@ export type TestItemOrderByRelevanceInput = {
 
 export type TestItemCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type TestItemMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type TestItemMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -316,8 +316,8 @@ export type TestItemMinOrderByAggregateInput = {
 
 export type TestItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  userId?: boolean
   title?: boolean
+  userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["testItem"]>
@@ -326,21 +326,21 @@ export type TestItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
 
 export type TestItemSelectScalar = {
   id?: boolean
-  userId?: boolean
   title?: boolean
+  userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type TestItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "title" | "createdAt" | "updatedAt", ExtArgs["result"]["testItem"]>
+export type TestItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["testItem"]>
 
 export type $TestItemPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "TestItem"
   objects: {}
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    userId: string
     title: string
+    userId: string
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["testItem"]>
@@ -713,8 +713,8 @@ export interface Prisma__TestItemClient<T, Null = never, ExtArgs extends runtime
  */
 export interface TestItemFieldRefs {
   readonly id: Prisma.FieldRef<"TestItem", 'String'>
-  readonly userId: Prisma.FieldRef<"TestItem", 'String'>
   readonly title: Prisma.FieldRef<"TestItem", 'String'>
+  readonly userId: Prisma.FieldRef<"TestItem", 'String'>
   readonly createdAt: Prisma.FieldRef<"TestItem", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"TestItem", 'DateTime'>
 }
