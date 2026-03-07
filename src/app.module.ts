@@ -9,6 +9,7 @@ import { SyncModule } from './sync/sync.module';
 import { TestModule } from './test/test.module';
 import { CategoriaModule } from './categoria/categoria.module';
 import { AreaModule } from './area/area.module';
+import { MediaModule } from './media/media.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { AreaModule } from './area/area.module';
     SyncModule,
     TestModule,
     CategoriaModule,
-    AreaModule
+    AreaModule,
+    MediaModule
   ],
   controllers: [AppController],
   providers: [AppService, SyncGateway],
