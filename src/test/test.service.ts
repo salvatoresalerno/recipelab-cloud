@@ -224,21 +224,21 @@ async delete(userId: string, id: string, deviceId: string) {
         console.log('userId: ', userId)
 
         const changes: ChangeLog[] = await this.prisma.changeLog.findMany({
-            where: {
-                userId: userId,
-                id: {
-                    gt: BigInt(lastId), // Convertiamo la stringa in BigInt per la query
-                },
+          where: {
+            userId: userId,
+            id: {
+              gt: BigInt(lastId), // Convertiamo la stringa in BigInt per la query
             },
-            orderBy: {
-                id: 'asc', // Fondamentale per l'ordine cronologico nel client
-            },
+          },
+          orderBy: {
+            id: 'asc', // Fondamentale per l'ordine cronologico nel client
+          },
         });
 
         // Tipizziamo il map per evitare l'errore "implicitly has any type"
         return changes.map((c: ChangeLog) => ({
-            ...c,
-            id: c.id.toString(), // Trasformiamo il BigInt in stringa
+          ...c,
+          id: c.id.toString(), // Trasformiamo il BigInt in stringa
         }));
     }
 

@@ -64,7 +64,7 @@ export class SyncGateway
     entity: string
     type: 'created' | 'updated' | 'deleted'
     id: string
-    updatedAt: Date
+    updatedAt: Date | null
     deviceId: string
     changeId: string
     data?: any

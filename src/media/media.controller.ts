@@ -15,10 +15,11 @@ export class MediaController {
 
 
   @UseGuards(JwtAuthGuard)
-  @Get(':resource/:filename') // Endpoint dinamico: es. media/categorie/uuid.jpg
+  @Get(':resource/:uniqueId/:filename') // Endpoint dinamico: es. media/categorie/uuid.jpg
   async getFile(
     @CurrentLoggedUser() user: CurrentUser,
     @Param('resource') resource: string,
+    @Param('uniqueId') uniqueId: string,
     @Param('filename') filename: string,
     @Res({ passthrough: true }) res: Response,
   ) {
@@ -28,10 +29,12 @@ export class MediaController {
       throw new CustomException('Categoria risorsa non valida');
     }
 
+    //const fileNameCloud = join(user.userId.toString(), filename)
+
     //const fileStream = this.mediaService.getFileStream(resource, filename);
     const fileStream = await this.mediaService.verifyAndGetStream(
       resource, 
-      filename, 
+      uniqueId + "\\" + filename, 
       user.userId
     );
 

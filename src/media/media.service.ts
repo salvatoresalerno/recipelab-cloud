@@ -12,7 +12,7 @@ export class MediaService {
 
     private readonly uploadRootDir = join(process.cwd(), 'uploads');
 
-        async verifyAndGetStream(resource: string, filename: string, userId: string) {
+    async verifyAndGetStream(resource: string, filename: string, userId: string) {
         // 1. Mappatura Risorsa -> Modello Prisma
         // Questo evita di passare nomi di tabelle arbitrarie dal frontend
         const resourceToModel: Record<string, any> = {
@@ -37,6 +37,10 @@ export class MediaService {
                 userId: userId,
             },
         });
+
+        console.log('record: ', record)
+        console.log('image: ', filename)
+        console.log('userId: ', userId)
 
         if (!record) {
             throw new ForbiddenException('Non hai i permessi per accedere a questo file');

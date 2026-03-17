@@ -4,7 +4,7 @@ import { diskStorage } from 'multer';
 import { Request } from 'express';
 import { HttpStatus } from '@nestjs/common';
 import { extname, join } from 'path';
-import { existsSync, mkdirSync } from 'fs';
+import { existsSync } from 'fs';
 import { CustomException } from './common/custom-exception/CustomException';
 
 interface MulterFile extends Express.Multer.File {}
@@ -33,43 +33,51 @@ function getUniqueFilename(destination: string, filename: string): string {
 */
 
 export function createMulterConfig(
-  baseDestination: string, 
+  destination: string, 
   maxSizeMB = 10, 
   fileNameField?: string, // Reso opzionale
   overwriteFileExist: boolean = true
 ) {
   return {
     storage: diskStorage({
-      //DESTINAZIONE DINAMICA PER UTENTE
-      destination: (_req: any, file, cb) => {
+      destination,
+      filename: (
+        _req: Request,
+        file: MulterFile,
+        cb: (error: Error | null, filename: string) => void,
+      ) => {
+        // 1. Verifica autenticazione (mantenuta come da tuo codice)
         const userId = _req.user?.userId;
         if (!userId) {
-          return cb(new CustomException('Utente non autenticato', HttpStatus.UNAUTHORIZED, 'Unauthorized', 'UPLOAD_NO_USER'), '');
+          return cb(new CustomException('Errore upload: utente non autenticato', HttpStatus.BAD_REQUEST, 'Bad Request', 'UPLOAD_NO_USER'), '');
         }
 
-        // Percorso: baseDestination/userId (es. uploads/avatars/42)
-        const userFolder = join(baseDestination, userId.toString());
+        let finalName: string;
+        const ext = extname(file.originalname);
 
-        // Crea la cartella se non esiste
-        if (!existsSync(userFolder)) {
-          mkdirSync(userFolder, { recursive: true });
+        // 2. LOGICA NOME FILE: Priorità al campo indicato, altrimenti nome originale
+        const rawNameFromBody = fileNameField ? _req.body?.[fileNameField] : null;
+
+        if (fileNameField && rawNameFromBody && typeof rawNameFromBody === 'string') {
+          // Se hai passato un field (es. 'categoria') e il field esiste, usa quello
+          const baseName = rawNameFromBody.replace(/\.[^/.]+$/, '');
+          const safeName = baseName.replace(/[^a-z0-9_-]/gi, '_').toLowerCase();
+          finalName = `${safeName}${ext}`;
+        } else {
+          // Se NON hai passato un field o il field è vuoto, usa il nome originale (il tuo GUID.jpg)
+          // Sanitizziamo comunque per sicurezza, ma manteniamo la struttura originale
+          finalName = file.originalname.replace(/\s/g, '_');
         }
 
-        cb(null, userFolder);
-      },
-      // NOME FILE UNIVOCO (UUID + Estensione)
-      filename: (_req: any, file, cb) => {
-        const ext = extname(file.originalname).toLowerCase();
-        
-        // Generiamo un nome basato su UUID o Timestamp + Random
-        // Esempio: 1694567890123-4567.jpg oppure un UUID
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-        const finalName = `${uniqueSuffix}${ext}`;
+        // 3. Controllo unicità
+        const uniqueName = overwriteFileExist 
+          ? finalName 
+          : getUniqueFilename(destination, finalName);
 
-        cb(null, finalName);
+        cb(null, uniqueName);
       },
     }),
-     //LIMITI
+    // ... resto della config (limits e fileFilter rimangono identici)
     limits: { fileSize: maxSizeMB * 1024 * 1024 },
     fileFilter: (
       _req: Request,

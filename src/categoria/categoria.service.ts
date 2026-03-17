@@ -1,16 +1,15 @@
 
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { SyncGateway } from 'src/sync/sync.gateway';
 import { CreateCategorieDto } from './dto/create-categorie.dto';
+import { UpdateCategorieDto } from './dto/update-categorie.dto';
+import { CustomException } from 'src/common/custom-exception/CustomException';
 
 @Injectable()
 export class CategoriaService {
 
-    constructor(
-        private prisma: PrismaService,
-        private syncGateway: SyncGateway
-    ) {}
+    constructor(private prisma: PrismaService, private syncGateway: SyncGateway) {}
 
     async create(userId: string, deviceId: string, body: CreateCategorieDto) {
 
@@ -30,7 +29,7 @@ export class CategoriaService {
                     userId,
                     entity: 'categoria',
                     recordId: categoria.idCategoria,
-                    operation: 'create',
+                    operation: 'created',
                     deviceId: deviceId,
                     payload: categoria, //salvo l'oggetto appena creato
                 }
@@ -53,6 +52,115 @@ export class CategoriaService {
 
         return result.categoria;     
     }
+
+    async update(id: string, userId: string, deviceId: string, body: UpdateCategorieDto) {   
+        const oldCategoria = await this.prisma.categoria.findUnique({
+            where: { idCategoria: id, userId },
+            select: {
+                idCategoria: true,
+                categoria: true,
+                image: true,
+                updatedAt: true
+            }
+        });
+
+        if (!oldCategoria) {
+            throw new CustomException('Categoria non trovata.', HttpStatus.NOT_FOUND, 'Not Found');
+        }
+
+        const result = await this.prisma.$transaction(async (tx) => {
+            //update record
+            const categoria = await this.prisma.categoria.update({
+                where: { idCategoria: id, userId },
+                data: body
+                /* data: { 
+                    categoria: updateCategorieDto.categoria,
+                    ...(updateCategorieDto.image && { image: updateCategorieDto.image })
+                }   */              
+            });
+
+            //creazione del log con PAYLOAD
+            const changeLog = await tx.changeLog.create({
+                data: {
+                    userId,
+                    entity: 'categoria',
+                    recordId: categoria.idCategoria,
+                    operation: 'updated',
+                    deviceId: deviceId,
+                    payload: categoria, //salvo l'oggetto appena creato
+                }
+            });
+
+            return { categoria, changeLog };
+        });
+
+        //Notifica via WebSocket
+        //Invio l'intero changeLog, così il client ha già tutto
+        this.syncGateway.notifyEntityChange(userId, {
+            entity: result.changeLog.entity,
+            type: result.changeLog.operation as any,
+            id: result.changeLog.recordId,
+            updatedAt: result.categoria.updatedAt,
+            deviceId: deviceId,
+            changeId: result.changeLog.id.toString(),
+            data: result.categoria // Includiamo i dati nella notifica real-time
+        });
+
+        return result.categoria;  
+
+    }
+
+
+    async remove(id: string, userId: string, deviceId: string) {  
+        const categoria = await this.prisma.categoria.findUnique({
+            where: { idCategoria: id, userId },
+            //select: { image: true, categoria: true }
+        });
+
+        if (!categoria) {
+            throw new CustomException('Categoria non trovata.', HttpStatus.NOT_FOUND, 'Not Found');
+        }
+
+        const result = await this.prisma.$transaction(async (tx) => {
+            await this.prisma.categoria.delete({
+                where: { idCategoria: id },
+            });
+
+            //creazione del log con PAYLOAD
+            const changeLog = await tx.changeLog.create({
+                data: {
+                    userId,
+                    entity: 'categoria',
+                    recordId: categoria.idCategoria,
+                    operation: 'deleted',
+                    deviceId: deviceId,
+                    payload: undefined
+                }
+            });
+
+            return { changeLog };
+        });
+
+     
+        //Notifica via WebSocket
+        //Invio l'intero changeLog, così il client ha già tutto
+        this.syncGateway.notifyEntityChange(userId, {
+            entity: result.changeLog.entity,
+            type: result.changeLog.operation as any,
+            id: result.changeLog.recordId,
+            updatedAt: null,
+            deviceId: deviceId,
+            changeId: result.changeLog.id.toString(),
+            data: undefined
+        });
+
+        return null;  
+
+   
+    
+  }
+  
+
     
 }
 
