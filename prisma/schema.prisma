@@ -70,7 +70,7 @@ model TestItem {
 
 model Categoria {
   idCategoria String    @id @default(uuid()) 
-  categoria   String    @unique 
+  categoria   String      
   image       String?    @default("")
 
   userId    String
@@ -79,13 +79,14 @@ model Categoria {
   updatedAt              DateTime   @default(now()) @updatedAt
 
   //ricette     Ricette[]
-
+  @@unique([categoria, userId])  //unicità categoria - utente
+  @@unique([idCategoria, userId])
   @@map("categoria")
 }
 
 model Area {  
   idArea   String    @id @default(uuid()) 
-  area     String    @unique 
+  area     String    
   image    String?    @default("")
 
   userId    String
@@ -95,6 +96,25 @@ model Area {
 
   //ricette Ricette[] 
 
+  @@unique([area, userId]) // Garantisce che un utente non abbia due aree con lo stesso nome
+  @@unique([idArea, userId]) //come un index per le ricerche
   @@map("area")
+}
+
+model Tag {
+  idTag   String    @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  tag     String     
+  color   String    @default("bg-lime-100")
+
+  userId    String
+
+  //ricette RicettaTag[]   rimosso temporaneamente
+
+  createdAt              DateTime   @default(now())  
+  updatedAt              DateTime   @default(now()) @updatedAt
+
+  @@unique([tag, userId])  
+  @@unique([idTag, userId])
+  @@map("tag")
 }
 

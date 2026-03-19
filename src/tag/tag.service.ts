@@ -1,23 +1,23 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { SyncGateway } from 'src/sync/sync.gateway';
-import { CreateAreaDto } from './dto/create-area.dto';
-import { UpdateAreaDto } from './dto/update-area.dto';
+import { CreateTagDto } from './dto/create-tag.dto';
+import { UpdateTagDto } from './dto/update-tag.dto';
 import { CustomException } from 'src/common/custom-exception/CustomException';
 
 @Injectable()
-export class AreaService {
+export class TagService {
 
     constructor(private prisma: PrismaService, private syncGateway: SyncGateway) {}
 
-    async create(userId: string, deviceId: string, body: CreateAreaDto) {
+    async create(userId: string, deviceId: string, body: CreateTagDto) {
     
         const result = await this.prisma.$transaction(async (tx) => {
             //salvataggio records
-            const area = await this.prisma.area.create({
+            const tag = await this.prisma.tag.create({
                 data: {
-                    area: body.area,
-                    image: body.image,
+                    tag: body.tag,
+                    color: body.color,
                     userId  
                 }
             });   
@@ -26,15 +26,15 @@ export class AreaService {
             const changeLog = await tx.changeLog.create({
                 data: {
                     userId,
-                    entity: 'area',
-                    recordId: area.idArea,
+                    entity: 'tag',
+                    recordId: tag.idTag,
                     operation: 'created',
                     deviceId: deviceId,
-                    payload: area, //salvo l'oggetto appena creato
+                    payload: tag, //salvo l'oggetto appena creato
                 }
             });
 
-            return { area, changeLog };
+            return { tag, changeLog };
         });
     
         //Notifica via WebSocket
@@ -43,62 +43,66 @@ export class AreaService {
             entity: result.changeLog.entity,
             type: result.changeLog.operation as any,
             id: result.changeLog.recordId,
-            updatedAt: result.area.updatedAt,
+            updatedAt: result.tag.updatedAt,
             deviceId: deviceId,
             changeId: result.changeLog.id.toString(),
-            data: result.area // Includiamo i dati nella notifica real-time
+            data: result.tag // Includiamo i dati nella notifica real-time
         });
 
-        return result.area;     
+        return result.tag;     
     }
 
-    async update(id: string, userId: string, deviceId: string, body: UpdateAreaDto) {   
-        const oldArea = await this.prisma.area.findUnique({
-            //where: { idArea: id, userId },
+    async update(id: string, userId: string, deviceId: string, body: UpdateTagDto) {   
+        const oldTag = await this.prisma.tag.findUnique({
+            //where: { idTag: id, userId },
             where: {
-                idArea_userId: {
-                    idArea: id,
+                idTag_userId: {
+                    idTag: id,
                     userId
                 }
             },
             select: {
-                idArea: true,
-                area: true,
-                image: true,
+                idTag: true,
+                tag: true,
+                color: true,
                 updatedAt: true
             }
         });
 
-        if (!oldArea) {
-            throw new CustomException('Area non trovata.', HttpStatus.NOT_FOUND, 'Not Found');
+        if (!oldTag) {
+            throw new CustomException('Tag non trovato.', HttpStatus.NOT_FOUND, 'Not Found');
         }
 
         const result = await this.prisma.$transaction(async (tx) => {
             //update record
-            const area = await this.prisma.area.update({
-                //where: { idArea: id, userId },
+            const tag = await this.prisma.tag.update({
+                //where: { idTag: id, userId },
                 where: {
-                    idArea_userId: {
-                        idArea: id,
+                    idTag_userId: {
+                        idTag: id,
                         userId
                     }
                 },
-                data: body    
+                data: body
+                /* data: { 
+                    categoria: updateCategorieDto.categoria,
+                    ...(updateCategorieDto.image && { image: updateCategorieDto.image })
+                }   */              
             });
 
             //creazione del log con PAYLOAD
             const changeLog = await tx.changeLog.create({
                 data: {
                     userId,
-                    entity: 'area',
-                    recordId: area.idArea,
+                    entity: 'tag',
+                    recordId: tag.idTag,
                     operation: 'updated',
                     deviceId: deviceId,
-                    payload: area, //salvo l'oggetto appena creato
+                    payload: tag, //salvo l'oggetto appena creato
                 }
             });
 
-            return { area, changeLog };
+            return { tag, changeLog };
         });
 
         //Notifica via WebSocket
@@ -107,39 +111,39 @@ export class AreaService {
             entity: result.changeLog.entity,
             type: result.changeLog.operation as any,
             id: result.changeLog.recordId,
-            updatedAt: result.area.updatedAt,
+            updatedAt: result.tag.updatedAt,
             deviceId: deviceId,
             changeId: result.changeLog.id.toString(),
-            data: result.area // Includiamo i dati nella notifica real-time
+            data: result.tag // Includiamo i dati nella notifica real-time
         });
 
-        return result.area;  
+        return result.tag;  
 
     }
 
 
     async remove(id: string, userId: string, deviceId: string) {  
-        const area = await this.prisma.area.findUnique({
+        const tag = await this.prisma.tag.findUnique({
+            //where: { idTag: id, userId },
+            //select: { image: true, categoria: true }
             where: {
-                idArea_userId: {
-                    idArea: id,
+                idTag_userId: {
+                    idTag: id,
                     userId
                 }
             },
-            //where: { idArea: id, userId },
-            //select: { image: true, categoria: true }
         });
 
-        if (!area) {
-            throw new CustomException('Area non trovata.', HttpStatus.NOT_FOUND, 'Not Found');
+        if (!tag) {
+            throw new CustomException('Tag non trovata.', HttpStatus.NOT_FOUND, 'Not Found');
         }
 
         const result = await this.prisma.$transaction(async (tx) => {
-            await this.prisma.area.delete({
-                //where: { idArea: id, userId },
+            await this.prisma.tag.delete({
+                //where: { idTag: id, userId },
                 where: {
-                    idArea_userId: {
-                        idArea: id,
+                    idTag_userId: {
+                        idTag: id,
                         userId
                     }
                 },
@@ -149,8 +153,8 @@ export class AreaService {
             const changeLog = await tx.changeLog.create({
                 data: {
                     userId,
-                    entity: 'area',
-                    recordId: area.idArea,
+                    entity: 'tag',
+                    recordId: tag.idTag,
                     operation: 'deleted',
                     deviceId: deviceId,
                     payload: undefined
@@ -178,5 +182,6 @@ export class AreaService {
     
     
     }
+      
 
 }

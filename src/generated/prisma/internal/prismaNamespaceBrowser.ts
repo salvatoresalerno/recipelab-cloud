@@ -55,7 +55,8 @@ export const ModelName = {
   User: 'User',
   TestItem: 'TestItem',
   Categoria: 'Categoria',
-  Area: 'Area'
+  Area: 'Area',
+  Tag: 'Tag'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -133,6 +134,18 @@ export const AreaScalarFieldEnum = {
 } as const
 
 export type AreaScalarFieldEnum = (typeof AreaScalarFieldEnum)[keyof typeof AreaScalarFieldEnum]
+
+
+export const TagScalarFieldEnum = {
+  idTag: 'idTag',
+  tag: 'tag',
+  color: 'color',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -224,4 +237,14 @@ export const AreaOrderByRelevanceFieldEnum = {
 } as const
 
 export type AreaOrderByRelevanceFieldEnum = (typeof AreaOrderByRelevanceFieldEnum)[keyof typeof AreaOrderByRelevanceFieldEnum]
+
+
+export const TagOrderByRelevanceFieldEnum = {
+  idTag: 'idTag',
+  tag: 'tag',
+  color: 'color',
+  userId: 'userId'
+} as const
+
+export type TagOrderByRelevanceFieldEnum = (typeof TagOrderByRelevanceFieldEnum)[keyof typeof TagOrderByRelevanceFieldEnum]
 

@@ -55,7 +55,13 @@ export class CategoriaService {
 
     async update(id: string, userId: string, deviceId: string, body: UpdateCategorieDto) {   
         const oldCategoria = await this.prisma.categoria.findUnique({
-            where: { idCategoria: id, userId },
+            //where: { idCategoria: id, userId  },
+            where: {
+                idCategoria_userId: {
+                    idCategoria: id,
+                    userId
+                }
+            },
             select: {
                 idCategoria: true,
                 categoria: true,
@@ -71,7 +77,13 @@ export class CategoriaService {
         const result = await this.prisma.$transaction(async (tx) => {
             //update record
             const categoria = await this.prisma.categoria.update({
-                where: { idCategoria: id, userId },
+                //where: { idCategoria: id, userId },
+                where: {
+                    idCategoria_userId: {
+                        idCategoria: id,
+                        userId
+                    }
+                },
                 data: body
                 /* data: { 
                     categoria: updateCategorieDto.categoria,
@@ -113,7 +125,13 @@ export class CategoriaService {
 
     async remove(id: string, userId: string, deviceId: string) {  
         const categoria = await this.prisma.categoria.findUnique({
-            where: { idCategoria: id, userId },
+            where: {
+                idCategoria_userId: {
+                    idCategoria: id,
+                    userId
+                }
+            },
+            //where: { idCategoria: id, userId },
             //select: { image: true, categoria: true }
         });
 
@@ -123,7 +141,13 @@ export class CategoriaService {
 
         const result = await this.prisma.$transaction(async (tx) => {
             await this.prisma.categoria.delete({
-                where: { idCategoria: id },
+                //where: { idCategoria: id, userId },
+                where: {
+                    idCategoria_userId: {
+                        idCategoria: id,
+                        userId
+                    }
+                },
             });
 
             //creazione del log con PAYLOAD

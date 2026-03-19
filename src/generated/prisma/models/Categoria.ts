@@ -204,15 +204,17 @@ export type CategoriaOrderByWithRelationInput = {
 
 export type CategoriaWhereUniqueInput = Prisma.AtLeast<{
   idCategoria?: string
-  categoria?: string
+  categoria_userId?: Prisma.CategoriaCategoriaUserIdCompoundUniqueInput
+  idCategoria_userId?: Prisma.CategoriaIdCategoriaUserIdCompoundUniqueInput
   AND?: Prisma.CategoriaWhereInput | Prisma.CategoriaWhereInput[]
   OR?: Prisma.CategoriaWhereInput[]
   NOT?: Prisma.CategoriaWhereInput | Prisma.CategoriaWhereInput[]
+  categoria?: Prisma.StringFilter<"Categoria"> | string
   image?: Prisma.StringNullableFilter<"Categoria"> | string | null
   userId?: Prisma.StringFilter<"Categoria"> | string
   createdAt?: Prisma.DateTimeFilter<"Categoria"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Categoria"> | Date | string
-}, "idCategoria" | "categoria">
+}, "idCategoria" | "categoria_userId" | "idCategoria_userId">
 
 export type CategoriaOrderByWithAggregationInput = {
   idCategoria?: Prisma.SortOrder
@@ -305,6 +307,16 @@ export type CategoriaOrderByRelevanceInput = {
   fields: Prisma.CategoriaOrderByRelevanceFieldEnum | Prisma.CategoriaOrderByRelevanceFieldEnum[]
   sort: Prisma.SortOrder
   search: string
+}
+
+export type CategoriaCategoriaUserIdCompoundUniqueInput = {
+  categoria: string
+  userId: string
+}
+
+export type CategoriaIdCategoriaUserIdCompoundUniqueInput = {
+  idCategoria: string
+  userId: string
 }
 
 export type CategoriaCountOrderByAggregateInput = {

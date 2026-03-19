@@ -24,7 +24,7 @@ export class MediaController {
     @Res({ passthrough: true }) res: Response,
   ) {
     // Possiamo aggiungere una whitelist di risorse per sicurezza
-    const validResources = ['categorie', 'ricette', 'ingredienti', 'step'];
+    const validResources = ['categorie', 'bandiere', 'ricette', 'ingredienti', 'step'];
     if (!validResources.includes(resource)) {
       throw new CustomException('Categoria risorsa non valida');
     }

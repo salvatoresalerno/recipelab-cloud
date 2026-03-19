@@ -10,6 +10,7 @@ import { TestModule } from './test/test.module';
 import { CategoriaModule } from './categoria/categoria.module';
 import { AreaModule } from './area/area.module';
 import { MediaModule } from './media/media.module';
+import { TagModule } from './tag/tag.module';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { MediaModule } from './media/media.module';
     TestModule,
     CategoriaModule,
     AreaModule,
-    MediaModule
+    MediaModule,
+    TagModule
   ],
   controllers: [AppController],
   providers: [AppService, SyncGateway],

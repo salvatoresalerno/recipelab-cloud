@@ -204,15 +204,17 @@ export type AreaOrderByWithRelationInput = {
 
 export type AreaWhereUniqueInput = Prisma.AtLeast<{
   idArea?: string
-  area?: string
+  area_userId?: Prisma.AreaAreaUserIdCompoundUniqueInput
+  idArea_userId?: Prisma.AreaIdAreaUserIdCompoundUniqueInput
   AND?: Prisma.AreaWhereInput | Prisma.AreaWhereInput[]
   OR?: Prisma.AreaWhereInput[]
   NOT?: Prisma.AreaWhereInput | Prisma.AreaWhereInput[]
+  area?: Prisma.StringFilter<"Area"> | string
   image?: Prisma.StringNullableFilter<"Area"> | string | null
   userId?: Prisma.StringFilter<"Area"> | string
   createdAt?: Prisma.DateTimeFilter<"Area"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Area"> | Date | string
-}, "idArea" | "area">
+}, "idArea" | "area_userId" | "idArea_userId">
 
 export type AreaOrderByWithAggregationInput = {
   idArea?: Prisma.SortOrder
@@ -305,6 +307,16 @@ export type AreaOrderByRelevanceInput = {
   fields: Prisma.AreaOrderByRelevanceFieldEnum | Prisma.AreaOrderByRelevanceFieldEnum[]
   sort: Prisma.SortOrder
   search: string
+}
+
+export type AreaAreaUserIdCompoundUniqueInput = {
+  area: string
+  userId: string
+}
+
+export type AreaIdAreaUserIdCompoundUniqueInput = {
+  idArea: string
+  userId: string
 }
 
 export type AreaCountOrderByAggregateInput = {

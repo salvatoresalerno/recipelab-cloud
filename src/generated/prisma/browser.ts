@@ -42,3 +42,8 @@ export type Categoria = Prisma.CategoriaModel
  * 
  */
 export type Area = Prisma.AreaModel
+/**
+ * Model Tag
+ * 
+ */
+export type Tag = Prisma.TagModel
