@@ -190,6 +190,7 @@ export type CategoriaWhereInput = {
   userId?: Prisma.StringFilter<"Categoria"> | string
   createdAt?: Prisma.DateTimeFilter<"Categoria"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Categoria"> | Date | string
+  ricette?: Prisma.RicetteListRelationFilter
 }
 
 export type CategoriaOrderByWithRelationInput = {
@@ -199,6 +200,7 @@ export type CategoriaOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  ricette?: Prisma.RicetteOrderByRelationAggregateInput
   _relevance?: Prisma.CategoriaOrderByRelevanceInput
 }
 
@@ -214,6 +216,7 @@ export type CategoriaWhereUniqueInput = Prisma.AtLeast<{
   userId?: Prisma.StringFilter<"Categoria"> | string
   createdAt?: Prisma.DateTimeFilter<"Categoria"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Categoria"> | Date | string
+  ricette?: Prisma.RicetteListRelationFilter
 }, "idCategoria" | "categoria_userId" | "idCategoria_userId">
 
 export type CategoriaOrderByWithAggregationInput = {
@@ -247,6 +250,7 @@ export type CategoriaCreateInput = {
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  ricette?: Prisma.RicetteCreateNestedManyWithoutCategoriaInput
 }
 
 export type CategoriaUncheckedCreateInput = {
@@ -256,6 +260,7 @@ export type CategoriaUncheckedCreateInput = {
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  ricette?: Prisma.RicetteUncheckedCreateNestedManyWithoutCategoriaInput
 }
 
 export type CategoriaUpdateInput = {
@@ -265,6 +270,7 @@ export type CategoriaUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ricette?: Prisma.RicetteUpdateManyWithoutCategoriaNestedInput
 }
 
 export type CategoriaUncheckedUpdateInput = {
@@ -274,6 +280,7 @@ export type CategoriaUncheckedUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ricette?: Prisma.RicetteUncheckedUpdateManyWithoutCategoriaNestedInput
 }
 
 export type CategoriaCreateManyInput = {
@@ -346,6 +353,108 @@ export type CategoriaMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type CategoriaNullableScalarRelationFilter = {
+  is?: Prisma.CategoriaWhereInput | null
+  isNot?: Prisma.CategoriaWhereInput | null
+}
+
+export type CategoriaCreateNestedOneWithoutRicetteInput = {
+  create?: Prisma.XOR<Prisma.CategoriaCreateWithoutRicetteInput, Prisma.CategoriaUncheckedCreateWithoutRicetteInput>
+  connectOrCreate?: Prisma.CategoriaCreateOrConnectWithoutRicetteInput
+  connect?: Prisma.CategoriaWhereUniqueInput
+}
+
+export type CategoriaUpdateOneWithoutRicetteNestedInput = {
+  create?: Prisma.XOR<Prisma.CategoriaCreateWithoutRicetteInput, Prisma.CategoriaUncheckedCreateWithoutRicetteInput>
+  connectOrCreate?: Prisma.CategoriaCreateOrConnectWithoutRicetteInput
+  upsert?: Prisma.CategoriaUpsertWithoutRicetteInput
+  disconnect?: Prisma.CategoriaWhereInput | boolean
+  delete?: Prisma.CategoriaWhereInput | boolean
+  connect?: Prisma.CategoriaWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CategoriaUpdateToOneWithWhereWithoutRicetteInput, Prisma.CategoriaUpdateWithoutRicetteInput>, Prisma.CategoriaUncheckedUpdateWithoutRicetteInput>
+}
+
+export type CategoriaCreateWithoutRicetteInput = {
+  idCategoria?: string
+  categoria: string
+  image?: string | null
+  userId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type CategoriaUncheckedCreateWithoutRicetteInput = {
+  idCategoria?: string
+  categoria: string
+  image?: string | null
+  userId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type CategoriaCreateOrConnectWithoutRicetteInput = {
+  where: Prisma.CategoriaWhereUniqueInput
+  create: Prisma.XOR<Prisma.CategoriaCreateWithoutRicetteInput, Prisma.CategoriaUncheckedCreateWithoutRicetteInput>
+}
+
+export type CategoriaUpsertWithoutRicetteInput = {
+  update: Prisma.XOR<Prisma.CategoriaUpdateWithoutRicetteInput, Prisma.CategoriaUncheckedUpdateWithoutRicetteInput>
+  create: Prisma.XOR<Prisma.CategoriaCreateWithoutRicetteInput, Prisma.CategoriaUncheckedCreateWithoutRicetteInput>
+  where?: Prisma.CategoriaWhereInput
+}
+
+export type CategoriaUpdateToOneWithWhereWithoutRicetteInput = {
+  where?: Prisma.CategoriaWhereInput
+  data: Prisma.XOR<Prisma.CategoriaUpdateWithoutRicetteInput, Prisma.CategoriaUncheckedUpdateWithoutRicetteInput>
+}
+
+export type CategoriaUpdateWithoutRicetteInput = {
+  idCategoria?: Prisma.StringFieldUpdateOperationsInput | string
+  categoria?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type CategoriaUncheckedUpdateWithoutRicetteInput = {
+  idCategoria?: Prisma.StringFieldUpdateOperationsInput | string
+  categoria?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type CategoriaCountOutputType
+ */
+
+export type CategoriaCountOutputType = {
+  ricette: number
+}
+
+export type CategoriaCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  ricette?: boolean | CategoriaCountOutputTypeCountRicetteArgs
+}
+
+/**
+ * CategoriaCountOutputType without action
+ */
+export type CategoriaCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CategoriaCountOutputType
+   */
+  select?: Prisma.CategoriaCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * CategoriaCountOutputType without action
+ */
+export type CategoriaCountOutputTypeCountRicetteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RicetteWhereInput
+}
 
 
 export type CategoriaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -355,6 +464,8 @@ export type CategoriaSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  ricette?: boolean | Prisma.Categoria$ricetteArgs<ExtArgs>
+  _count?: boolean | Prisma.CategoriaCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["categoria"]>
 
 
@@ -369,10 +480,16 @@ export type CategoriaSelectScalar = {
 }
 
 export type CategoriaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"idCategoria" | "categoria" | "image" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["categoria"]>
+export type CategoriaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  ricette?: boolean | Prisma.Categoria$ricetteArgs<ExtArgs>
+  _count?: boolean | Prisma.CategoriaCountOutputTypeDefaultArgs<ExtArgs>
+}
 
 export type $CategoriaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Categoria"
-  objects: {}
+  objects: {
+    ricette: Prisma.$RicettePayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     idCategoria: string
     categoria: string
@@ -720,6 +837,7 @@ readonly fields: CategoriaFieldRefs;
  */
 export interface Prisma__CategoriaClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  ricette<T extends Prisma.Categoria$ricetteArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Categoria$ricetteArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RicettePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -772,6 +890,10 @@ export type CategoriaFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Int
    */
   omit?: Prisma.CategoriaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CategoriaInclude<ExtArgs> | null
+  /**
    * Filter, which Categoria to fetch.
    */
   where: Prisma.CategoriaWhereUniqueInput
@@ -790,6 +912,10 @@ export type CategoriaFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensi
    */
   omit?: Prisma.CategoriaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CategoriaInclude<ExtArgs> | null
+  /**
    * Filter, which Categoria to fetch.
    */
   where: Prisma.CategoriaWhereUniqueInput
@@ -807,6 +933,10 @@ export type CategoriaFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Omit specific fields from the Categoria
    */
   omit?: Prisma.CategoriaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CategoriaInclude<ExtArgs> | null
   /**
    * Filter, which Categoria to fetch.
    */
@@ -856,6 +986,10 @@ export type CategoriaFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensio
    */
   omit?: Prisma.CategoriaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CategoriaInclude<ExtArgs> | null
+  /**
    * Filter, which Categoria to fetch.
    */
   where?: Prisma.CategoriaWhereInput
@@ -904,6 +1038,10 @@ export type CategoriaFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    */
   omit?: Prisma.CategoriaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CategoriaInclude<ExtArgs> | null
+  /**
    * Filter, which Categorias to fetch.
    */
   where?: Prisma.CategoriaWhereInput
@@ -947,6 +1085,10 @@ export type CategoriaCreateArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.CategoriaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CategoriaInclude<ExtArgs> | null
+  /**
    * The data needed to create a Categoria.
    */
   data: Prisma.XOR<Prisma.CategoriaCreateInput, Prisma.CategoriaUncheckedCreateInput>
@@ -975,6 +1117,10 @@ export type CategoriaUpdateArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Categoria
    */
   omit?: Prisma.CategoriaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CategoriaInclude<ExtArgs> | null
   /**
    * The data needed to update a Categoria.
    */
@@ -1016,6 +1162,10 @@ export type CategoriaUpsertArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.CategoriaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CategoriaInclude<ExtArgs> | null
+  /**
    * The filter to search for the Categoria to update in case it exists.
    */
   where: Prisma.CategoriaWhereUniqueInput
@@ -1042,6 +1192,10 @@ export type CategoriaDeleteArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.CategoriaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CategoriaInclude<ExtArgs> | null
+  /**
    * Filter which Categoria to delete.
    */
   where: Prisma.CategoriaWhereUniqueInput
@@ -1062,6 +1216,30 @@ export type CategoriaDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 /**
+ * Categoria.ricette
+ */
+export type Categoria$ricetteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Ricette
+   */
+  select?: Prisma.RicetteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Ricette
+   */
+  omit?: Prisma.RicetteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RicetteInclude<ExtArgs> | null
+  where?: Prisma.RicetteWhereInput
+  orderBy?: Prisma.RicetteOrderByWithRelationInput | Prisma.RicetteOrderByWithRelationInput[]
+  cursor?: Prisma.RicetteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RicetteScalarFieldEnum | Prisma.RicetteScalarFieldEnum[]
+}
+
+/**
  * Categoria without action
  */
 export type CategoriaDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1073,4 +1251,8 @@ export type CategoriaDefaultArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the Categoria
    */
   omit?: Prisma.CategoriaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CategoriaInclude<ExtArgs> | null
 }

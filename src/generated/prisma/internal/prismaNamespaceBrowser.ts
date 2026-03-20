@@ -56,7 +56,22 @@ export const ModelName = {
   TestItem: 'TestItem',
   Categoria: 'Categoria',
   Area: 'Area',
-  Tag: 'Tag'
+  Tag: 'Tag',
+  RicettaTag: 'RicettaTag',
+  UM: 'UM',
+  Ricette: 'Ricette',
+  Dettagli: 'Dettagli',
+  istruzioni: 'istruzioni',
+  Ingredienti: 'Ingredienti',
+  SchedaIngrediente: 'SchedaIngrediente',
+  InfoNutrizionali: 'InfoNutrizionali',
+  Vitamina: 'Vitamina',
+  UsiCulinari: 'UsiCulinari',
+  Sostituto: 'Sostituto',
+  Allergene: 'Allergene',
+  DettagliIngrediente: 'DettagliIngrediente',
+  Fornitore: 'Fornitore',
+  FornitoreIngrediente: 'FornitoreIngrediente'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -146,6 +161,187 @@ export const TagScalarFieldEnum = {
 } as const
 
 export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
+
+
+export const RicettaTagScalarFieldEnum = {
+  idRicetta: 'idRicetta',
+  idTag: 'idTag'
+} as const
+
+export type RicettaTagScalarFieldEnum = (typeof RicettaTagScalarFieldEnum)[keyof typeof RicettaTagScalarFieldEnum]
+
+
+export const UMScalarFieldEnum = {
+  idUM: 'idUM',
+  sigla: 'sigla',
+  nome: 'nome',
+  fattoreGrammi: 'fattoreGrammi'
+} as const
+
+export type UMScalarFieldEnum = (typeof UMScalarFieldEnum)[keyof typeof UMScalarFieldEnum]
+
+
+export const RicetteScalarFieldEnum = {
+  idRicetta: 'idRicetta',
+  titolo: 'titolo',
+  image: 'image',
+  areaId: 'areaId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  categoriaId: 'categoriaId',
+  preferito: 'preferito',
+  descrizione: 'descrizione',
+  difficolta: 'difficolta',
+  preparazione: 'preparazione',
+  userId: 'userId'
+} as const
+
+export type RicetteScalarFieldEnum = (typeof RicetteScalarFieldEnum)[keyof typeof RicetteScalarFieldEnum]
+
+
+export const DettagliScalarFieldEnum = {
+  idDettagli: 'idDettagli',
+  idRicetta: 'idRicetta',
+  youtubeLink: 'youtubeLink',
+  descrizione_lunga: 'descrizione_lunga',
+  consigli: 'consigli',
+  userId: 'userId'
+} as const
+
+export type DettagliScalarFieldEnum = (typeof DettagliScalarFieldEnum)[keyof typeof DettagliScalarFieldEnum]
+
+
+export const IstruzioniScalarFieldEnum = {
+  id: 'id',
+  stepNumber: 'stepNumber',
+  valore: 'valore',
+  image: 'image',
+  imageId: 'imageId',
+  dettagliId: 'dettagliId',
+  userId: 'userId'
+} as const
+
+export type IstruzioniScalarFieldEnum = (typeof IstruzioniScalarFieldEnum)[keyof typeof IstruzioniScalarFieldEnum]
+
+
+export const IngredientiScalarFieldEnum = {
+  idIngrediente: 'idIngrediente',
+  ingrediente: 'ingrediente',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type IngredientiScalarFieldEnum = (typeof IngredientiScalarFieldEnum)[keyof typeof IngredientiScalarFieldEnum]
+
+
+export const SchedaIngredienteScalarFieldEnum = {
+  idScheda: 'idScheda',
+  image: 'image',
+  descrizione_breve: 'descrizione_breve',
+  descrizione_lunga: 'descrizione_lunga',
+  consigli_conservazione: 'consigli_conservazione',
+  consigli_preparazione: 'consigli_preparazione',
+  pesoMedioGrammi: 'pesoMedioGrammi',
+  userId: 'userId',
+  ingredienteId: 'ingredienteId'
+} as const
+
+export type SchedaIngredienteScalarFieldEnum = (typeof SchedaIngredienteScalarFieldEnum)[keyof typeof SchedaIngredienteScalarFieldEnum]
+
+
+export const InfoNutrizionaliScalarFieldEnum = {
+  idInfo: 'idInfo',
+  energia: 'energia',
+  proteine: 'proteine',
+  carboidrati: 'carboidrati',
+  zuccheri: 'zuccheri',
+  grassi: 'grassi',
+  grassi_saturi: 'grassi_saturi',
+  fibre: 'fibre',
+  sodio: 'sodio',
+  colesterolo: 'colesterolo',
+  note: 'note',
+  yf: 'yf',
+  schedaId: 'schedaId'
+} as const
+
+export type InfoNutrizionaliScalarFieldEnum = (typeof InfoNutrizionaliScalarFieldEnum)[keyof typeof InfoNutrizionaliScalarFieldEnum]
+
+
+export const VitaminaScalarFieldEnum = {
+  idVitamina: 'idVitamina',
+  nome: 'nome',
+  infoId: 'infoId'
+} as const
+
+export type VitaminaScalarFieldEnum = (typeof VitaminaScalarFieldEnum)[keyof typeof VitaminaScalarFieldEnum]
+
+
+export const UsiCulinariScalarFieldEnum = {
+  idUso: 'idUso',
+  uso: 'uso',
+  schedaId: 'schedaId'
+} as const
+
+export type UsiCulinariScalarFieldEnum = (typeof UsiCulinariScalarFieldEnum)[keyof typeof UsiCulinariScalarFieldEnum]
+
+
+export const SostitutoScalarFieldEnum = {
+  idSostituto: 'idSostituto',
+  nome: 'nome',
+  schedaId: 'schedaId'
+} as const
+
+export type SostitutoScalarFieldEnum = (typeof SostitutoScalarFieldEnum)[keyof typeof SostitutoScalarFieldEnum]
+
+
+export const AllergeneScalarFieldEnum = {
+  idAllergene: 'idAllergene',
+  nome: 'nome',
+  schedaId: 'schedaId'
+} as const
+
+export type AllergeneScalarFieldEnum = (typeof AllergeneScalarFieldEnum)[keyof typeof AllergeneScalarFieldEnum]
+
+
+export const DettagliIngredienteScalarFieldEnum = {
+  dettaglioId: 'dettaglioId',
+  idIngrediente: 'idIngrediente',
+  quantita: 'quantita',
+  umId: 'umId'
+} as const
+
+export type DettagliIngredienteScalarFieldEnum = (typeof DettagliIngredienteScalarFieldEnum)[keyof typeof DettagliIngredienteScalarFieldEnum]
+
+
+export const FornitoreScalarFieldEnum = {
+  idFornitore: 'idFornitore',
+  nome: 'nome',
+  email: 'email',
+  telefono: 'telefono',
+  note: 'note',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FornitoreScalarFieldEnum = (typeof FornitoreScalarFieldEnum)[keyof typeof FornitoreScalarFieldEnum]
+
+
+export const FornitoreIngredienteScalarFieldEnum = {
+  id: 'id',
+  fornitoreId: 'fornitoreId',
+  ingredienteId: 'ingredienteId',
+  umId: 'umId',
+  quantita: 'quantita',
+  prezzoTotale: 'prezzoTotale',
+  prezzoUnitario: 'prezzoUnitario',
+  preferito: 'preferito',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FornitoreIngredienteScalarFieldEnum = (typeof FornitoreIngredienteScalarFieldEnum)[keyof typeof FornitoreIngredienteScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -247,4 +443,160 @@ export const TagOrderByRelevanceFieldEnum = {
 } as const
 
 export type TagOrderByRelevanceFieldEnum = (typeof TagOrderByRelevanceFieldEnum)[keyof typeof TagOrderByRelevanceFieldEnum]
+
+
+export const RicettaTagOrderByRelevanceFieldEnum = {
+  idRicetta: 'idRicetta',
+  idTag: 'idTag'
+} as const
+
+export type RicettaTagOrderByRelevanceFieldEnum = (typeof RicettaTagOrderByRelevanceFieldEnum)[keyof typeof RicettaTagOrderByRelevanceFieldEnum]
+
+
+export const UMOrderByRelevanceFieldEnum = {
+  idUM: 'idUM',
+  sigla: 'sigla',
+  nome: 'nome'
+} as const
+
+export type UMOrderByRelevanceFieldEnum = (typeof UMOrderByRelevanceFieldEnum)[keyof typeof UMOrderByRelevanceFieldEnum]
+
+
+export const RicetteOrderByRelevanceFieldEnum = {
+  idRicetta: 'idRicetta',
+  titolo: 'titolo',
+  image: 'image',
+  areaId: 'areaId',
+  categoriaId: 'categoriaId',
+  descrizione: 'descrizione',
+  difficolta: 'difficolta',
+  preparazione: 'preparazione',
+  userId: 'userId'
+} as const
+
+export type RicetteOrderByRelevanceFieldEnum = (typeof RicetteOrderByRelevanceFieldEnum)[keyof typeof RicetteOrderByRelevanceFieldEnum]
+
+
+export const DettagliOrderByRelevanceFieldEnum = {
+  idDettagli: 'idDettagli',
+  idRicetta: 'idRicetta',
+  youtubeLink: 'youtubeLink',
+  descrizione_lunga: 'descrizione_lunga',
+  consigli: 'consigli',
+  userId: 'userId'
+} as const
+
+export type DettagliOrderByRelevanceFieldEnum = (typeof DettagliOrderByRelevanceFieldEnum)[keyof typeof DettagliOrderByRelevanceFieldEnum]
+
+
+export const istruzioniOrderByRelevanceFieldEnum = {
+  id: 'id',
+  valore: 'valore',
+  image: 'image',
+  imageId: 'imageId',
+  dettagliId: 'dettagliId',
+  userId: 'userId'
+} as const
+
+export type istruzioniOrderByRelevanceFieldEnum = (typeof istruzioniOrderByRelevanceFieldEnum)[keyof typeof istruzioniOrderByRelevanceFieldEnum]
+
+
+export const IngredientiOrderByRelevanceFieldEnum = {
+  idIngrediente: 'idIngrediente',
+  ingrediente: 'ingrediente',
+  userId: 'userId'
+} as const
+
+export type IngredientiOrderByRelevanceFieldEnum = (typeof IngredientiOrderByRelevanceFieldEnum)[keyof typeof IngredientiOrderByRelevanceFieldEnum]
+
+
+export const SchedaIngredienteOrderByRelevanceFieldEnum = {
+  idScheda: 'idScheda',
+  image: 'image',
+  descrizione_breve: 'descrizione_breve',
+  descrizione_lunga: 'descrizione_lunga',
+  consigli_conservazione: 'consigli_conservazione',
+  consigli_preparazione: 'consigli_preparazione',
+  userId: 'userId',
+  ingredienteId: 'ingredienteId'
+} as const
+
+export type SchedaIngredienteOrderByRelevanceFieldEnum = (typeof SchedaIngredienteOrderByRelevanceFieldEnum)[keyof typeof SchedaIngredienteOrderByRelevanceFieldEnum]
+
+
+export const InfoNutrizionaliOrderByRelevanceFieldEnum = {
+  idInfo: 'idInfo',
+  note: 'note',
+  schedaId: 'schedaId'
+} as const
+
+export type InfoNutrizionaliOrderByRelevanceFieldEnum = (typeof InfoNutrizionaliOrderByRelevanceFieldEnum)[keyof typeof InfoNutrizionaliOrderByRelevanceFieldEnum]
+
+
+export const VitaminaOrderByRelevanceFieldEnum = {
+  idVitamina: 'idVitamina',
+  nome: 'nome',
+  infoId: 'infoId'
+} as const
+
+export type VitaminaOrderByRelevanceFieldEnum = (typeof VitaminaOrderByRelevanceFieldEnum)[keyof typeof VitaminaOrderByRelevanceFieldEnum]
+
+
+export const UsiCulinariOrderByRelevanceFieldEnum = {
+  idUso: 'idUso',
+  uso: 'uso',
+  schedaId: 'schedaId'
+} as const
+
+export type UsiCulinariOrderByRelevanceFieldEnum = (typeof UsiCulinariOrderByRelevanceFieldEnum)[keyof typeof UsiCulinariOrderByRelevanceFieldEnum]
+
+
+export const SostitutoOrderByRelevanceFieldEnum = {
+  idSostituto: 'idSostituto',
+  nome: 'nome',
+  schedaId: 'schedaId'
+} as const
+
+export type SostitutoOrderByRelevanceFieldEnum = (typeof SostitutoOrderByRelevanceFieldEnum)[keyof typeof SostitutoOrderByRelevanceFieldEnum]
+
+
+export const AllergeneOrderByRelevanceFieldEnum = {
+  idAllergene: 'idAllergene',
+  nome: 'nome',
+  schedaId: 'schedaId'
+} as const
+
+export type AllergeneOrderByRelevanceFieldEnum = (typeof AllergeneOrderByRelevanceFieldEnum)[keyof typeof AllergeneOrderByRelevanceFieldEnum]
+
+
+export const DettagliIngredienteOrderByRelevanceFieldEnum = {
+  dettaglioId: 'dettaglioId',
+  idIngrediente: 'idIngrediente',
+  quantita: 'quantita',
+  umId: 'umId'
+} as const
+
+export type DettagliIngredienteOrderByRelevanceFieldEnum = (typeof DettagliIngredienteOrderByRelevanceFieldEnum)[keyof typeof DettagliIngredienteOrderByRelevanceFieldEnum]
+
+
+export const FornitoreOrderByRelevanceFieldEnum = {
+  idFornitore: 'idFornitore',
+  nome: 'nome',
+  email: 'email',
+  telefono: 'telefono',
+  note: 'note',
+  userId: 'userId'
+} as const
+
+export type FornitoreOrderByRelevanceFieldEnum = (typeof FornitoreOrderByRelevanceFieldEnum)[keyof typeof FornitoreOrderByRelevanceFieldEnum]
+
+
+export const FornitoreIngredienteOrderByRelevanceFieldEnum = {
+  id: 'id',
+  fornitoreId: 'fornitoreId',
+  ingredienteId: 'ingredienteId',
+  umId: 'umId'
+} as const
+
+export type FornitoreIngredienteOrderByRelevanceFieldEnum = (typeof FornitoreIngredienteOrderByRelevanceFieldEnum)[keyof typeof FornitoreIngredienteOrderByRelevanceFieldEnum]
 

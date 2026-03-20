@@ -78,7 +78,8 @@ model Categoria {
   createdAt              DateTime   @default(now())  
   updatedAt              DateTime   @default(now()) @updatedAt
 
-  //ricette     Ricette[]
+  ricette     Ricette[]
+
   @@unique([categoria, userId])  //unicità categoria - utente
   @@unique([idCategoria, userId])
   @@map("categoria")
@@ -94,7 +95,7 @@ model Area {
   createdAt              DateTime   @default(now()) //aggiunti dopo
   updatedAt              DateTime   @default(now()) @updatedAt
 
-  //ricette Ricette[] 
+  ricette Ricette[] 
 
   @@unique([area, userId]) // Garantisce che un utente non abbia due aree con lo stesso nome
   @@unique([idArea, userId]) //come un index per le ricerche
@@ -108,7 +109,7 @@ model Tag {
 
   userId    String
 
-  //ricette RicettaTag[]   rimosso temporaneamente
+  ricette RicettaTag[]    
 
   createdAt              DateTime   @default(now())  
   updatedAt              DateTime   @default(now()) @updatedAt
@@ -116,5 +117,275 @@ model Tag {
   @@unique([tag, userId])  
   @@unique([idTag, userId])
   @@map("tag")
+}
+
+model RicettaTag {    //tabella di join tra ricette e tag (relazione n:n)
+  idRicetta String
+  idTag     String
+
+  ricetta   Ricette @relation(fields: [idRicetta], references: [idRicetta], onDelete: Cascade)
+  tag       Tag     @relation(fields: [idTag], references: [idTag], onDelete: Restrict)
+  //tag       Tag     @relation(fields: [idTag], references: [idTag], onDelete: Cascade)
+
+  @@id([idRicetta, idTag])
+
+  //@@map("ricettatag")
+}
+
+model UM {
+  idUM            String   @id @default(uuid()) 
+  sigla           String   @unique   // es: g, ml, pz
+  nome            String             // es: grammi, millilitri, pezzi
+  fattoreGrammi   Float?  // NULL = non pesabile es. pz --> fattoreGrammi=null, kg --> fattoreGrammi = 1000, l --> fattoreGrammi 1000
+
+  dettagliIngrediente DettagliIngrediente[]
+
+  //listaSpesa ListaSpesaIngrediente[]  DA INSERIRE IN FUTURO
+
+  fornitoriIngrediente FornitoreIngrediente[]
+
+  @@map("um")
+}
+
+
+//-------------RICETTE-----------------------------
+
+model Ricette {  
+  idRicetta    String      @id @default(uuid())
+  titolo       String        
+  image        String?     
+  areaId       String? 
+  area         Area?       @relation(fields: [areaId], references: [idArea], onDelete: Restrict)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @default(now()) @updatedAt
+  categoriaId  String?    
+  categoria    Categoria?  @relation(fields: [categoriaId], references: [idCategoria], onDelete: Restrict)
+  tags         RicettaTag[]       
+  dettagli     Dettagli?  
+  //listeSpesa   ListaSpesa[]  DA INSERIRE IN FUTURO
+  preferito     Boolean   @default(false)
+  descrizione  String?
+  difficolta   String?     
+  preparazione String?
+
+  userId    String
+
+  @@unique([titolo, userId])
+  @@unique([idRicetta, userId])
+  @@index([preferito])  //per velocizzare query di ricerca ricette preferite
+
+  @@map("ricette")
+}
+
+model Dettagli {
+  idDettagli   String  @id @default(uuid())
+  idRicetta    String  @unique 
+  step         istruzioni[]
+  youtubeLink  String? 
+  descrizione_lunga String? 
+  consigli          String? 
+  ingredienti DettagliIngrediente[] 
+  ricette     Ricette @relation(fields: [idRicetta], references: [idRicetta], onDelete: Cascade)
+
+  userId String
+
+  @@unique([idDettagli, userId])
+  @@map("dettagli")
+}
+
+model istruzioni {
+  id          String    @id @default(uuid())
+  stepNumber  Int       @default(0)
+  valore      String    
+  image       String?   
+  imageId     String    
+  dettagliId  String
+  dettagli    Dettagli @relation(fields: [dettagliId], references: [idDettagli], onDelete: Cascade)
+
+  userId String
+
+  @@unique([id, userId])
+  @@unique([dettagliId, valore])  //suggerito: @@unique([dettagliId, stepNumber]) però ???
+}
+
+
+//-------------INGREDIENTI--------------------------
+
+model Ingredienti {
+  idIngrediente     String   @id @default(uuid())
+  ingrediente       String   
+  scheda            SchedaIngrediente?
+  dettagli          DettagliIngrediente[] 
+
+  userId    String
+
+  // listaSpesa        ListaSpesaIngrediente[]  DA INSERIRE IN FUTURO
+
+  fornitori     FornitoreIngrediente[]
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @default(now()) @updatedAt   
+
+  @@unique([ingrediente, userId])
+  @@map("ingredienti")
+}
+
+//------------tabelle per scheda ingrediente--------------------
+
+model SchedaIngrediente {
+  idScheda          String   @id @default(uuid()) 
+  image             String?   
+  //urlImage          String?   
+  descrizione_breve String?   
+  descrizione_lunga String?   
+
+  consigli_conservazione String?   
+  consigli_preparazione  String?   
+
+  // 1-1 con InfoNutrizionali
+  infoNutrizionali InfoNutrizionali?
+
+  pesoMedioGrammi   Float?   // es. 60 per uovo (per ing con um tipo "pezzi")
+
+  usi_culinari   UsiCulinari[]
+  sostituti      Sostituto[]
+  allergeni      Allergene[]
+
+  userId String
+
+  ingrediente    Ingredienti @relation(fields: [ingredienteId], references: [idIngrediente], onDelete: Cascade)
+  ingredienteId  String @unique 
+
+  @@unique([idScheda, userId])
+  @@map("schede_ingredienti")
+}
+
+model InfoNutrizionali {
+  idInfo          String   @id @default(uuid()) 
+
+  energia         Float?  
+  proteine        Float? 
+  carboidrati     Float? 
+  zuccheri        Float? 
+  grassi          Float? 
+  grassi_saturi   Float?
+  fibre           Float? 
+  sodio           Float? 
+  colesterolo     Float? 
+  //  minerali        String?   
+
+  vitamine        Vitamina[]
+  note            String?  
+
+  yf              Float? //@default(1.0)  // coefficiente di resa
+
+  schedaId        String   @unique 
+  scheda          SchedaIngrediente @relation(fields: [schedaId], references: [idScheda], onDelete: Cascade)
+
+  @@map("info_nutrizionali")
+}
+
+model Vitamina {
+  idVitamina   String   @id @default(uuid()) 
+  nome         String  
+
+  infoId       String
+  info         InfoNutrizionali @relation(fields: [infoId], references: [idInfo], onDelete: Cascade)
+
+  @@map("vitamine")
+}
+
+model UsiCulinari {
+  idUso        String   @id @default(uuid()) 
+  uso          String  
+
+  schedaId     String
+  scheda       SchedaIngrediente @relation(fields: [schedaId], references: [idScheda], onDelete: Cascade)
+
+  @@map("usi_culinari")
+}
+
+model Sostituto {
+  idSostituto  String   @id @default(uuid()) 
+  nome         String   
+
+  schedaId     String
+  scheda       SchedaIngrediente @relation(fields: [schedaId], references: [idScheda], onDelete: Cascade)
+
+  @@map("sostituti")
+}
+
+model Allergene {
+  idAllergene  String   @id @default(uuid()) 
+  nome         String   
+
+  schedaId     String
+  scheda       SchedaIngrediente @relation(fields: [schedaId], references: [idScheda], onDelete: Cascade)
+
+  @@map("allergeni")
+}
+
+
+//-------------------FINE tabelle per scheda ingrediente-------------------------------------------
+
+model DettagliIngrediente {  //tabella di join tra ingredienti e dettagli (relazione n:n)
+  dettaglioId     String
+  idIngrediente   String
+  quantita        String?  // specifica della ricetta
+  umId            String? 
+
+  dettaglio       Dettagli    @relation(fields: [dettaglioId], references: [idDettagli], onDelete: Cascade)
+  ingrediente     Ingredienti @relation(fields: [idIngrediente], references: [idIngrediente], onDelete: Restrict)
+  um              UM?         @relation(fields: [umId], references: [idUM], onDelete: Restrict)
+  
+  @@id([dettaglioId, idIngrediente])
+
+  //@@map("dettagliingrediente")
+}
+
+
+// --------------------news features -----------------------------
+
+model Fornitore {
+  idFornitore String @id @default(uuid())
+  nome        String  
+  email       String?
+  telefono    String?
+  note        String?
+
+  userId    String
+
+  ingredienti FornitoreIngrediente[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@unique([idFornitore, userId])
+  @@unique([nome, userId])
+  @@map("fornitori")
+}
+
+
+model FornitoreIngrediente {
+  id             String @id @default(uuid())
+
+  fornitoreId    String
+  ingredienteId  String
+  umId           String  // unità di misura del formato
+
+  quantita       Float   // es: 5 kg
+  prezzoTotale   Float   // es: 12.50 €  
+  prezzoUnitario Float // calcolato (€/kg o €/g)
+
+  preferito      Boolean @default(false)
+
+  fornitore  Fornitore     @relation(fields: [fornitoreId], references: [idFornitore], onDelete: Cascade)
+  ingrediente Ingredienti  @relation(fields: [ingredienteId], references: [idIngrediente], onDelete: Cascade)
+  um         UM            @relation(fields: [umId], references: [idUM])
+
+  updatedAt DateTime @updatedAt
+  
+  @@unique([fornitoreId, ingredienteId])
+  @@map("fornitore_ingrediente")
 }
 

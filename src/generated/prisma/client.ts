@@ -67,3 +67,78 @@ export type Area = Prisma.AreaModel
  * 
  */
 export type Tag = Prisma.TagModel
+/**
+ * Model RicettaTag
+ * 
+ */
+export type RicettaTag = Prisma.RicettaTagModel
+/**
+ * Model UM
+ * 
+ */
+export type UM = Prisma.UMModel
+/**
+ * Model Ricette
+ * 
+ */
+export type Ricette = Prisma.RicetteModel
+/**
+ * Model Dettagli
+ * 
+ */
+export type Dettagli = Prisma.DettagliModel
+/**
+ * Model istruzioni
+ * 
+ */
+export type istruzioni = Prisma.istruzioniModel
+/**
+ * Model Ingredienti
+ * 
+ */
+export type Ingredienti = Prisma.IngredientiModel
+/**
+ * Model SchedaIngrediente
+ * 
+ */
+export type SchedaIngrediente = Prisma.SchedaIngredienteModel
+/**
+ * Model InfoNutrizionali
+ * 
+ */
+export type InfoNutrizionali = Prisma.InfoNutrizionaliModel
+/**
+ * Model Vitamina
+ * 
+ */
+export type Vitamina = Prisma.VitaminaModel
+/**
+ * Model UsiCulinari
+ * 
+ */
+export type UsiCulinari = Prisma.UsiCulinariModel
+/**
+ * Model Sostituto
+ * 
+ */
+export type Sostituto = Prisma.SostitutoModel
+/**
+ * Model Allergene
+ * 
+ */
+export type Allergene = Prisma.AllergeneModel
+/**
+ * Model DettagliIngrediente
+ * 
+ */
+export type DettagliIngrediente = Prisma.DettagliIngredienteModel
+/**
+ * Model Fornitore
+ * 
+ */
+export type Fornitore = Prisma.FornitoreModel
+/**
+ * Model FornitoreIngrediente
+ * 
+ */
+export type FornitoreIngrediente = Prisma.FornitoreIngredienteModel

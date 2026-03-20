@@ -190,6 +190,7 @@ export type AreaWhereInput = {
   userId?: Prisma.StringFilter<"Area"> | string
   createdAt?: Prisma.DateTimeFilter<"Area"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Area"> | Date | string
+  ricette?: Prisma.RicetteListRelationFilter
 }
 
 export type AreaOrderByWithRelationInput = {
@@ -199,6 +200,7 @@ export type AreaOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  ricette?: Prisma.RicetteOrderByRelationAggregateInput
   _relevance?: Prisma.AreaOrderByRelevanceInput
 }
 
@@ -214,6 +216,7 @@ export type AreaWhereUniqueInput = Prisma.AtLeast<{
   userId?: Prisma.StringFilter<"Area"> | string
   createdAt?: Prisma.DateTimeFilter<"Area"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Area"> | Date | string
+  ricette?: Prisma.RicetteListRelationFilter
 }, "idArea" | "area_userId" | "idArea_userId">
 
 export type AreaOrderByWithAggregationInput = {
@@ -247,6 +250,7 @@ export type AreaCreateInput = {
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  ricette?: Prisma.RicetteCreateNestedManyWithoutAreaInput
 }
 
 export type AreaUncheckedCreateInput = {
@@ -256,6 +260,7 @@ export type AreaUncheckedCreateInput = {
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  ricette?: Prisma.RicetteUncheckedCreateNestedManyWithoutAreaInput
 }
 
 export type AreaUpdateInput = {
@@ -265,6 +270,7 @@ export type AreaUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ricette?: Prisma.RicetteUpdateManyWithoutAreaNestedInput
 }
 
 export type AreaUncheckedUpdateInput = {
@@ -274,6 +280,7 @@ export type AreaUncheckedUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ricette?: Prisma.RicetteUncheckedUpdateManyWithoutAreaNestedInput
 }
 
 export type AreaCreateManyInput = {
@@ -346,6 +353,108 @@ export type AreaMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type AreaNullableScalarRelationFilter = {
+  is?: Prisma.AreaWhereInput | null
+  isNot?: Prisma.AreaWhereInput | null
+}
+
+export type AreaCreateNestedOneWithoutRicetteInput = {
+  create?: Prisma.XOR<Prisma.AreaCreateWithoutRicetteInput, Prisma.AreaUncheckedCreateWithoutRicetteInput>
+  connectOrCreate?: Prisma.AreaCreateOrConnectWithoutRicetteInput
+  connect?: Prisma.AreaWhereUniqueInput
+}
+
+export type AreaUpdateOneWithoutRicetteNestedInput = {
+  create?: Prisma.XOR<Prisma.AreaCreateWithoutRicetteInput, Prisma.AreaUncheckedCreateWithoutRicetteInput>
+  connectOrCreate?: Prisma.AreaCreateOrConnectWithoutRicetteInput
+  upsert?: Prisma.AreaUpsertWithoutRicetteInput
+  disconnect?: Prisma.AreaWhereInput | boolean
+  delete?: Prisma.AreaWhereInput | boolean
+  connect?: Prisma.AreaWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AreaUpdateToOneWithWhereWithoutRicetteInput, Prisma.AreaUpdateWithoutRicetteInput>, Prisma.AreaUncheckedUpdateWithoutRicetteInput>
+}
+
+export type AreaCreateWithoutRicetteInput = {
+  idArea?: string
+  area: string
+  image?: string | null
+  userId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type AreaUncheckedCreateWithoutRicetteInput = {
+  idArea?: string
+  area: string
+  image?: string | null
+  userId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type AreaCreateOrConnectWithoutRicetteInput = {
+  where: Prisma.AreaWhereUniqueInput
+  create: Prisma.XOR<Prisma.AreaCreateWithoutRicetteInput, Prisma.AreaUncheckedCreateWithoutRicetteInput>
+}
+
+export type AreaUpsertWithoutRicetteInput = {
+  update: Prisma.XOR<Prisma.AreaUpdateWithoutRicetteInput, Prisma.AreaUncheckedUpdateWithoutRicetteInput>
+  create: Prisma.XOR<Prisma.AreaCreateWithoutRicetteInput, Prisma.AreaUncheckedCreateWithoutRicetteInput>
+  where?: Prisma.AreaWhereInput
+}
+
+export type AreaUpdateToOneWithWhereWithoutRicetteInput = {
+  where?: Prisma.AreaWhereInput
+  data: Prisma.XOR<Prisma.AreaUpdateWithoutRicetteInput, Prisma.AreaUncheckedUpdateWithoutRicetteInput>
+}
+
+export type AreaUpdateWithoutRicetteInput = {
+  idArea?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type AreaUncheckedUpdateWithoutRicetteInput = {
+  idArea?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type AreaCountOutputType
+ */
+
+export type AreaCountOutputType = {
+  ricette: number
+}
+
+export type AreaCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  ricette?: boolean | AreaCountOutputTypeCountRicetteArgs
+}
+
+/**
+ * AreaCountOutputType without action
+ */
+export type AreaCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AreaCountOutputType
+   */
+  select?: Prisma.AreaCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * AreaCountOutputType without action
+ */
+export type AreaCountOutputTypeCountRicetteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RicetteWhereInput
+}
 
 
 export type AreaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -355,6 +464,8 @@ export type AreaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  ricette?: boolean | Prisma.Area$ricetteArgs<ExtArgs>
+  _count?: boolean | Prisma.AreaCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["area"]>
 
 
@@ -369,10 +480,16 @@ export type AreaSelectScalar = {
 }
 
 export type AreaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"idArea" | "area" | "image" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["area"]>
+export type AreaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  ricette?: boolean | Prisma.Area$ricetteArgs<ExtArgs>
+  _count?: boolean | Prisma.AreaCountOutputTypeDefaultArgs<ExtArgs>
+}
 
 export type $AreaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Area"
-  objects: {}
+  objects: {
+    ricette: Prisma.$RicettePayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     idArea: string
     area: string
@@ -720,6 +837,7 @@ readonly fields: AreaFieldRefs;
  */
 export interface Prisma__AreaClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  ricette<T extends Prisma.Area$ricetteArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Area$ricetteArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RicettePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -772,6 +890,10 @@ export type AreaFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.AreaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AreaInclude<ExtArgs> | null
+  /**
    * Filter, which Area to fetch.
    */
   where: Prisma.AreaWhereUniqueInput
@@ -790,6 +912,10 @@ export type AreaFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.AreaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AreaInclude<ExtArgs> | null
+  /**
    * Filter, which Area to fetch.
    */
   where: Prisma.AreaWhereUniqueInput
@@ -807,6 +933,10 @@ export type AreaFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Area
    */
   omit?: Prisma.AreaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AreaInclude<ExtArgs> | null
   /**
    * Filter, which Area to fetch.
    */
@@ -856,6 +986,10 @@ export type AreaFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.AreaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AreaInclude<ExtArgs> | null
+  /**
    * Filter, which Area to fetch.
    */
   where?: Prisma.AreaWhereInput
@@ -904,6 +1038,10 @@ export type AreaFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.AreaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AreaInclude<ExtArgs> | null
+  /**
    * Filter, which Areas to fetch.
    */
   where?: Prisma.AreaWhereInput
@@ -947,6 +1085,10 @@ export type AreaCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.AreaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AreaInclude<ExtArgs> | null
+  /**
    * The data needed to create a Area.
    */
   data: Prisma.XOR<Prisma.AreaCreateInput, Prisma.AreaUncheckedCreateInput>
@@ -975,6 +1117,10 @@ export type AreaUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    * Omit specific fields from the Area
    */
   omit?: Prisma.AreaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AreaInclude<ExtArgs> | null
   /**
    * The data needed to update a Area.
    */
@@ -1016,6 +1162,10 @@ export type AreaUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.AreaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AreaInclude<ExtArgs> | null
+  /**
    * The filter to search for the Area to update in case it exists.
    */
   where: Prisma.AreaWhereUniqueInput
@@ -1042,6 +1192,10 @@ export type AreaDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.AreaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AreaInclude<ExtArgs> | null
+  /**
    * Filter which Area to delete.
    */
   where: Prisma.AreaWhereUniqueInput
@@ -1062,6 +1216,30 @@ export type AreaDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
+ * Area.ricette
+ */
+export type Area$ricetteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Ricette
+   */
+  select?: Prisma.RicetteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Ricette
+   */
+  omit?: Prisma.RicetteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RicetteInclude<ExtArgs> | null
+  where?: Prisma.RicetteWhereInput
+  orderBy?: Prisma.RicetteOrderByWithRelationInput | Prisma.RicetteOrderByWithRelationInput[]
+  cursor?: Prisma.RicetteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RicetteScalarFieldEnum | Prisma.RicetteScalarFieldEnum[]
+}
+
+/**
  * Area without action
  */
 export type AreaDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1073,4 +1251,8 @@ export type AreaDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the Area
    */
   omit?: Prisma.AreaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AreaInclude<ExtArgs> | null
 }
